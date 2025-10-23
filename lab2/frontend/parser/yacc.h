@@ -32,7 +32,7 @@
 
 
 /**
- ** \file yacc.tab.h
+ ** \file frontend/parser/yacc.h
  ** Define the  FE ::parser class.
  */
 
@@ -42,8 +42,8 @@
 // especially those whose name start with YY_ or yy_.  They are
 // private implementation details that can be changed or removed.
 
-#ifndef YY_YY_YACC_TAB_H_INCLUDED
-# define YY_YY_YACC_TAB_H_INCLUDED
+#ifndef YY_YY_FRONTEND_PARSER_YACC_H_INCLUDED
+# define YY_YY_FRONTEND_PARSER_YACC_H_INCLUDED
 // "%code requires" blocks.
 #line 12 "frontend/parser/yacc.y"
 
@@ -63,7 +63,7 @@
         class Scanner;
     }
 
-#line 67 "yacc.tab.h"
+#line 67 "frontend/parser/yacc.h"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -204,7 +204,7 @@
 
 #line 4 "frontend/parser/yacc.y"
 namespace  FE  {
-#line 208 "yacc.tab.h"
+#line 208 "frontend/parser/yacc.h"
 
 
 
@@ -451,23 +451,26 @@ namespace  FE  {
       // VAR_DECLARATOR
       char dummy6[sizeof (FE::AST::VarDeclarator*)];
 
+      // FLOAT_CONST
+      char dummy7[sizeof (float)];
+
       // INT_CONST
-      char dummy7[sizeof (int)];
+      char dummy8[sizeof (int)];
 
       // STR_CONST
       // ERR_TOKEN
       // SLASH_COMMENT
       // IDENT
-      char dummy8[sizeof (std::string)];
+      char dummy9[sizeof (std::string)];
 
       // PARAM_DECLARATOR_LIST
-      char dummy9[sizeof (std::vector<FE::AST::ParamDeclarator*>*)];
+      char dummy10[sizeof (std::vector<FE::AST::ParamDeclarator*>*)];
 
       // STMT_LIST
-      char dummy10[sizeof (std::vector<FE::AST::StmtNode*>*)];
+      char dummy11[sizeof (std::vector<FE::AST::StmtNode*>*)];
 
       // VAR_DECLARATOR_LIST
-      char dummy11[sizeof (std::vector<FE::AST::VarDeclarator*>*)];
+      char dummy12[sizeof (std::vector<FE::AST::VarDeclarator*>*)];
     };
 
     /// The size of the largest semantic type.
@@ -521,32 +524,33 @@ namespace  FE  {
     TOKEN_YYerror = 256,           // error
     TOKEN_YYUNDEF = 257,           // "invalid token"
     TOKEN_INT_CONST = 258,         // INT_CONST
-    TOKEN_STR_CONST = 259,         // STR_CONST
-    TOKEN_ERR_TOKEN = 260,         // ERR_TOKEN
-    TOKEN_SLASH_COMMENT = 261,     // SLASH_COMMENT
-    TOKEN_IDENT = 262,             // IDENT
-    TOKEN_IF = 263,                // IF
-    TOKEN_ELSE = 264,              // ELSE
-    TOKEN_FOR = 265,               // FOR
-    TOKEN_WHILE = 266,             // WHILE
-    TOKEN_CONTINUE = 267,          // CONTINUE
-    TOKEN_BREAK = 268,             // BREAK
-    TOKEN_SWITCH = 269,            // SWITCH
-    TOKEN_CASE = 270,              // CASE
-    TOKEN_GOTO = 271,              // GOTO
-    TOKEN_DO = 272,                // DO
-    TOKEN_RETURN = 273,            // RETURN
-    TOKEN_CONST = 274,             // CONST
-    TOKEN_SEMICOLON = 275,         // SEMICOLON
-    TOKEN_COMMA = 276,             // COMMA
-    TOKEN_LPAREN = 277,            // LPAREN
-    TOKEN_RPAREN = 278,            // RPAREN
-    TOKEN_LBRACKET = 279,          // LBRACKET
-    TOKEN_RBRACKET = 280,          // RBRACKET
-    TOKEN_LBRACE = 281,            // LBRACE
-    TOKEN_RBRACE = 282,            // RBRACE
-    TOKEN_END = 283,               // END
-    TOKEN_THEN = 284               // THEN
+    TOKEN_FLOAT_CONST = 259,       // FLOAT_CONST
+    TOKEN_STR_CONST = 260,         // STR_CONST
+    TOKEN_ERR_TOKEN = 261,         // ERR_TOKEN
+    TOKEN_SLASH_COMMENT = 262,     // SLASH_COMMENT
+    TOKEN_IDENT = 263,             // IDENT
+    TOKEN_IF = 264,                // IF
+    TOKEN_ELSE = 265,              // ELSE
+    TOKEN_FOR = 266,               // FOR
+    TOKEN_WHILE = 267,             // WHILE
+    TOKEN_CONTINUE = 268,          // CONTINUE
+    TOKEN_BREAK = 269,             // BREAK
+    TOKEN_SWITCH = 270,            // SWITCH
+    TOKEN_CASE = 271,              // CASE
+    TOKEN_GOTO = 272,              // GOTO
+    TOKEN_DO = 273,                // DO
+    TOKEN_RETURN = 274,            // RETURN
+    TOKEN_CONST = 275,             // CONST
+    TOKEN_SEMICOLON = 276,         // SEMICOLON
+    TOKEN_COMMA = 277,             // COMMA
+    TOKEN_LPAREN = 278,            // LPAREN
+    TOKEN_RPAREN = 279,            // RPAREN
+    TOKEN_LBRACKET = 280,          // LBRACKET
+    TOKEN_RBRACKET = 281,          // RBRACKET
+    TOKEN_LBRACE = 282,            // LBRACE
+    TOKEN_RBRACE = 283,            // RBRACE
+    TOKEN_END = 284,               // END
+    TOKEN_THEN = 285               // THEN
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -563,58 +567,59 @@ namespace  FE  {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 30, ///< Number of tokens.
+        YYNTOKENS = 31, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
         S_INT_CONST = 3,                         // INT_CONST
-        S_STR_CONST = 4,                         // STR_CONST
-        S_ERR_TOKEN = 5,                         // ERR_TOKEN
-        S_SLASH_COMMENT = 6,                     // SLASH_COMMENT
-        S_IDENT = 7,                             // IDENT
-        S_IF = 8,                                // IF
-        S_ELSE = 9,                              // ELSE
-        S_FOR = 10,                              // FOR
-        S_WHILE = 11,                            // WHILE
-        S_CONTINUE = 12,                         // CONTINUE
-        S_BREAK = 13,                            // BREAK
-        S_SWITCH = 14,                           // SWITCH
-        S_CASE = 15,                             // CASE
-        S_GOTO = 16,                             // GOTO
-        S_DO = 17,                               // DO
-        S_RETURN = 18,                           // RETURN
-        S_CONST = 19,                            // CONST
-        S_SEMICOLON = 20,                        // SEMICOLON
-        S_COMMA = 21,                            // COMMA
-        S_LPAREN = 22,                           // LPAREN
-        S_RPAREN = 23,                           // RPAREN
-        S_LBRACKET = 24,                         // LBRACKET
-        S_RBRACKET = 25,                         // RBRACKET
-        S_LBRACE = 26,                           // LBRACE
-        S_RBRACE = 27,                           // RBRACE
-        S_END = 28,                              // END
-        S_THEN = 29,                             // THEN
-        S_YYACCEPT = 30,                         // $accept
-        S_PROGRAM = 31,                          // PROGRAM
-        S_STMT_LIST = 32,                        // STMT_LIST
-        S_STMT = 33,                             // STMT
-        S_CONTINUE_STMT = 34,                    // CONTINUE_STMT
-        S_EXPR_STMT = 35,                        // EXPR_STMT
-        S_VAR_DECLARATION = 36,                  // VAR_DECLARATION
-        S_VAR_DECL_STMT = 37,                    // VAR_DECL_STMT
-        S_FUNC_BODY = 38,                        // FUNC_BODY
-        S_FUNC_DECL_STMT = 39,                   // FUNC_DECL_STMT
-        S_FOR_STMT = 40,                         // FOR_STMT
-        S_IF_STMT = 41,                          // IF_STMT
-        S_PARAM_DECLARATOR_LIST = 42,            // PARAM_DECLARATOR_LIST
-        S_VAR_DECLARATOR = 43,                   // VAR_DECLARATOR
-        S_VAR_DECLARATOR_LIST = 44,              // VAR_DECLARATOR_LIST
-        S_ASSIGN_EXPR = 45,                      // ASSIGN_EXPR
-        S_EXPR = 46,                             // EXPR
-        S_NOCOMMA_EXPR = 47,                     // NOCOMMA_EXPR
-        S_LOGICAL_OR_EXPR = 48,                  // LOGICAL_OR_EXPR
-        S_TYPE = 49                              // TYPE
+        S_FLOAT_CONST = 4,                       // FLOAT_CONST
+        S_STR_CONST = 5,                         // STR_CONST
+        S_ERR_TOKEN = 6,                         // ERR_TOKEN
+        S_SLASH_COMMENT = 7,                     // SLASH_COMMENT
+        S_IDENT = 8,                             // IDENT
+        S_IF = 9,                                // IF
+        S_ELSE = 10,                             // ELSE
+        S_FOR = 11,                              // FOR
+        S_WHILE = 12,                            // WHILE
+        S_CONTINUE = 13,                         // CONTINUE
+        S_BREAK = 14,                            // BREAK
+        S_SWITCH = 15,                           // SWITCH
+        S_CASE = 16,                             // CASE
+        S_GOTO = 17,                             // GOTO
+        S_DO = 18,                               // DO
+        S_RETURN = 19,                           // RETURN
+        S_CONST = 20,                            // CONST
+        S_SEMICOLON = 21,                        // SEMICOLON
+        S_COMMA = 22,                            // COMMA
+        S_LPAREN = 23,                           // LPAREN
+        S_RPAREN = 24,                           // RPAREN
+        S_LBRACKET = 25,                         // LBRACKET
+        S_RBRACKET = 26,                         // RBRACKET
+        S_LBRACE = 27,                           // LBRACE
+        S_RBRACE = 28,                           // RBRACE
+        S_END = 29,                              // END
+        S_THEN = 30,                             // THEN
+        S_YYACCEPT = 31,                         // $accept
+        S_PROGRAM = 32,                          // PROGRAM
+        S_STMT_LIST = 33,                        // STMT_LIST
+        S_STMT = 34,                             // STMT
+        S_CONTINUE_STMT = 35,                    // CONTINUE_STMT
+        S_EXPR_STMT = 36,                        // EXPR_STMT
+        S_VAR_DECLARATION = 37,                  // VAR_DECLARATION
+        S_VAR_DECL_STMT = 38,                    // VAR_DECL_STMT
+        S_FUNC_BODY = 39,                        // FUNC_BODY
+        S_FUNC_DECL_STMT = 40,                   // FUNC_DECL_STMT
+        S_FOR_STMT = 41,                         // FOR_STMT
+        S_IF_STMT = 42,                          // IF_STMT
+        S_PARAM_DECLARATOR_LIST = 43,            // PARAM_DECLARATOR_LIST
+        S_VAR_DECLARATOR = 44,                   // VAR_DECLARATOR
+        S_VAR_DECLARATOR_LIST = 45,              // VAR_DECLARATOR_LIST
+        S_ASSIGN_EXPR = 46,                      // ASSIGN_EXPR
+        S_EXPR = 47,                             // EXPR
+        S_NOCOMMA_EXPR = 48,                     // NOCOMMA_EXPR
+        S_LOGICAL_OR_EXPR = 49,                  // LOGICAL_OR_EXPR
+        S_TYPE = 50                              // TYPE
       };
     };
 
@@ -683,6 +688,10 @@ namespace  FE  {
 
       case symbol_kind::S_VAR_DECLARATOR: // VAR_DECLARATOR
         value.move< FE::AST::VarDeclarator* > (std::move (that.value));
+        break;
+
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.move< float > (std::move (that.value));
         break;
 
       case symbol_kind::S_INT_CONST: // INT_CONST
@@ -809,6 +818,20 @@ namespace  FE  {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const FE::AST::VarDeclarator*& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, float&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const float& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -943,6 +966,10 @@ switch (yykind)
         value.template destroy< FE::AST::VarDeclarator* > ();
         break;
 
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.template destroy< float > ();
+        break;
+
       case symbol_kind::S_INT_CONST: // INT_CONST
         value.template destroy< int > ();
         break;
@@ -1066,6 +1093,18 @@ switch (yykind)
         YY_ASSERT (tok == token::TOKEN_YYEOF
                    || (token::TOKEN_YYerror <= tok && tok <= token::TOKEN_YYUNDEF)
                    || (token::TOKEN_IF <= tok && tok <= token::TOKEN_THEN));
+#endif
+      }
+#if 201103L <= YY_CPLUSPLUS
+      symbol_type (int tok, float v, location_type l)
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
+#else
+      symbol_type (int tok, const float& v, const location_type& l)
+        : super_type (token_kind_type (tok), v, l)
+#endif
+      {
+#if !defined _MSC_VER || defined __clang__
+        YY_ASSERT (tok == token::TOKEN_FLOAT_CONST);
 #endif
       }
 #if 201103L <= YY_CPLUSPLUS
@@ -1198,6 +1237,21 @@ switch (yykind)
       make_INT_CONST (const int& v, const location_type& l)
       {
         return symbol_type (token::TOKEN_INT_CONST, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FLOAT_CONST (float v, location_type l)
+      {
+        return symbol_type (token::TOKEN_FLOAT_CONST, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_FLOAT_CONST (const float& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_FLOAT_CONST, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1970,10 +2024,10 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29
+      25,    26,    27,    28,    29,    30
     };
     // Last valid token kind.
-    const int code_max = 284;
+    const int code_max = 285;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -2024,6 +2078,10 @@ switch (yykind)
 
       case symbol_kind::S_VAR_DECLARATOR: // VAR_DECLARATOR
         value.copy< FE::AST::VarDeclarator* > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.copy< float > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_INT_CONST: // INT_CONST
@@ -2112,6 +2170,10 @@ switch (yykind)
 
       case symbol_kind::S_VAR_DECLARATOR: // VAR_DECLARATOR
         value.move< FE::AST::VarDeclarator* > (YY_MOVE (s.value));
+        break;
+
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.move< float > (YY_MOVE (s.value));
         break;
 
       case symbol_kind::S_INT_CONST: // INT_CONST
@@ -2204,9 +2266,9 @@ switch (yykind)
 
 #line 4 "frontend/parser/yacc.y"
 } //  FE 
-#line 2208 "yacc.tab.h"
+#line 2270 "frontend/parser/yacc.h"
 
 
 
 
-#endif // !YY_YY_YACC_TAB_H_INCLUDED
+#endif // !YY_YY_FRONTEND_PARSER_YACC_H_INCLUDED

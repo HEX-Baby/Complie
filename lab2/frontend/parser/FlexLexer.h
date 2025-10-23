@@ -44,17 +44,6 @@
 //      #include <FlexLexer.h>
 //      ...
 
-// Flex 会生成一个继承自 yyFlexLexer 的类。
-// 而 yyFlexLexer 就是这里定义的。
-
-
-// FlexLexer (纯虚接口类)
-//         ↑
-//   yyFlexLexer (默认 C++ 扫描器类)
-//         ↑
-//    FE::Scanner (自己封装的扫描器类)
-
-
 #ifndef __FLEX_LEXER_H
 // Never included before - need to define base class.
 #define __FLEX_LEXER_H
@@ -82,13 +71,6 @@ class FlexLexer
     virtual void             yyrestart(std::istream& s)                       = 0;
 
     virtual int yylex() = 0;
-
-
-
-// YYText()：返回当前 token 的字符串。
-// YYLeng()：返回 token 长度。
-// yylex()：主扫描函数，每调用一次返回一个 token。
-// switch_streams()：动态切换输入输出流。
 
     // Call yylex with new input/output sources.
     int yylex(std::istream& new_in, std::ostream& new_out)
@@ -127,8 +109,6 @@ class FlexLexer
 // or this is a repeated include to define a different flavor of
 // yyFlexLexer, as discussed in the flex manual.
 #define yyFlexLexerOnce
-
-// yyFlexLexer 默认实现类
 
 extern "C++" {
 

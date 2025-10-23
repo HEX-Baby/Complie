@@ -55,12 +55,12 @@
 
     extern size_t errCnt;
 
-#line 59 "yacc.tab.c"
+#line 59 "frontend/parser/yacc.cpp"
 
 
 
 
-#include "yacc.tab.h"
+#include "yacc.h"
 
 
 
@@ -155,7 +155,7 @@
 
 #line 4 "frontend/parser/yacc.y"
 namespace  FE  {
-#line 159 "yacc.tab.c"
+#line 159 "frontend/parser/yacc.cpp"
 
   /// Build a parser object.
    YaccParser :: YaccParser  (FE::Scanner& scanner_yyarg, FE::Parser& parser_yyarg)
@@ -258,6 +258,10 @@ namespace  FE  {
         value.YY_MOVE_OR_COPY< FE::AST::VarDeclarator* > (YY_MOVE (that.value));
         break;
 
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.YY_MOVE_OR_COPY< float > (YY_MOVE (that.value));
+        break;
+
       case symbol_kind::S_INT_CONST: // INT_CONST
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
@@ -328,6 +332,10 @@ namespace  FE  {
 
       case symbol_kind::S_VAR_DECLARATOR: // VAR_DECLARATOR
         value.move< FE::AST::VarDeclarator* > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.move< float > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_INT_CONST: // INT_CONST
@@ -402,6 +410,10 @@ namespace  FE  {
         value.copy< FE::AST::VarDeclarator* > (that.value);
         break;
 
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.copy< float > (that.value);
+        break;
+
       case symbol_kind::S_INT_CONST: // INT_CONST
         value.copy< int > (that.value);
         break;
@@ -471,6 +483,10 @@ namespace  FE  {
 
       case symbol_kind::S_VAR_DECLARATOR: // VAR_DECLARATOR
         value.move< FE::AST::VarDeclarator* > (that.value);
+        break;
+
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        value.move< float > (that.value);
         break;
 
       case symbol_kind::S_INT_CONST: // INT_CONST
@@ -789,6 +805,10 @@ namespace  FE  {
         yylhs.value.emplace< FE::AST::VarDeclarator* > ();
         break;
 
+      case symbol_kind::S_FLOAT_CONST: // FLOAT_CONST
+        yylhs.value.emplace< float > ();
+        break;
+
       case symbol_kind::S_INT_CONST: // INT_CONST
         yylhs.value.emplace< int > ();
         break;
@@ -833,146 +853,146 @@ namespace  FE  {
           switch (yyn)
             {
   case 2: // PROGRAM: STMT_LIST
-#line 134 "frontend/parser/yacc.y"
+#line 136 "frontend/parser/yacc.y"
               {
         yylhs.value.as < FE::AST::Root* > () = new Root(yystack_[0].value.as < std::vector<FE::AST::StmtNode*>* > ());
         parser.ast = yylhs.value.as < FE::AST::Root* > ();
     }
-#line 842 "yacc.tab.c"
+#line 862 "frontend/parser/yacc.cpp"
     break;
 
   case 3: // PROGRAM: PROGRAM END
-#line 138 "frontend/parser/yacc.y"
+#line 140 "frontend/parser/yacc.y"
                   {
         YYACCEPT;
     }
-#line 850 "yacc.tab.c"
+#line 870 "frontend/parser/yacc.cpp"
     break;
 
   case 4: // STMT_LIST: STMT
-#line 144 "frontend/parser/yacc.y"
+#line 146 "frontend/parser/yacc.y"
          {
         yylhs.value.as < std::vector<FE::AST::StmtNode*>* > () = new std::vector<StmtNode*>();
         if (yystack_[0].value.as < FE::AST::StmtNode* > ()) yylhs.value.as < std::vector<FE::AST::StmtNode*>* > ()->push_back(yystack_[0].value.as < FE::AST::StmtNode* > ());
     }
-#line 859 "yacc.tab.c"
+#line 879 "frontend/parser/yacc.cpp"
     break;
 
   case 5: // STMT_LIST: STMT_LIST STMT
-#line 148 "frontend/parser/yacc.y"
+#line 150 "frontend/parser/yacc.y"
                      {
         yylhs.value.as < std::vector<FE::AST::StmtNode*>* > () = yystack_[1].value.as < std::vector<FE::AST::StmtNode*>* > ();
         if (yystack_[0].value.as < FE::AST::StmtNode* > ()) yylhs.value.as < std::vector<FE::AST::StmtNode*>* > ()->push_back(yystack_[0].value.as < FE::AST::StmtNode* > ());
     }
-#line 868 "yacc.tab.c"
+#line 888 "frontend/parser/yacc.cpp"
     break;
 
   case 6: // STMT: EXPR_STMT
-#line 155 "frontend/parser/yacc.y"
+#line 157 "frontend/parser/yacc.y"
               {
         yylhs.value.as < FE::AST::StmtNode* > () = yystack_[0].value.as < FE::AST::StmtNode* > ();
     }
-#line 876 "yacc.tab.c"
+#line 896 "frontend/parser/yacc.cpp"
     break;
 
   case 7: // STMT: VAR_DECL_STMT
-#line 158 "frontend/parser/yacc.y"
+#line 160 "frontend/parser/yacc.y"
                     {
         yylhs.value.as < FE::AST::StmtNode* > () = yystack_[0].value.as < FE::AST::StmtNode* > ();
     }
-#line 884 "yacc.tab.c"
+#line 904 "frontend/parser/yacc.cpp"
     break;
 
   case 8: // STMT: FUNC_DECL_STMT
-#line 161 "frontend/parser/yacc.y"
+#line 163 "frontend/parser/yacc.y"
                      {
         yylhs.value.as < FE::AST::StmtNode* > () = yystack_[0].value.as < FE::AST::StmtNode* > ();
     }
-#line 892 "yacc.tab.c"
+#line 912 "frontend/parser/yacc.cpp"
     break;
 
   case 9: // STMT: FOR_STMT
-#line 164 "frontend/parser/yacc.y"
+#line 166 "frontend/parser/yacc.y"
                {
         yylhs.value.as < FE::AST::StmtNode* > () = yystack_[0].value.as < FE::AST::StmtNode* > ();
     }
-#line 900 "yacc.tab.c"
+#line 920 "frontend/parser/yacc.cpp"
     break;
 
   case 10: // STMT: IF_STMT
-#line 167 "frontend/parser/yacc.y"
+#line 169 "frontend/parser/yacc.y"
               {
         yylhs.value.as < FE::AST::StmtNode* > () = yystack_[0].value.as < FE::AST::StmtNode* > ();
     }
-#line 908 "yacc.tab.c"
+#line 928 "frontend/parser/yacc.cpp"
     break;
 
   case 11: // STMT: CONTINUE_STMT
-#line 170 "frontend/parser/yacc.y"
+#line 172 "frontend/parser/yacc.y"
                     {
         yylhs.value.as < FE::AST::StmtNode* > () = yystack_[0].value.as < FE::AST::StmtNode* > ();
     }
-#line 916 "yacc.tab.c"
+#line 936 "frontend/parser/yacc.cpp"
     break;
 
   case 12: // STMT: SEMICOLON
-#line 173 "frontend/parser/yacc.y"
+#line 175 "frontend/parser/yacc.y"
                 {
         yylhs.value.as < FE::AST::StmtNode* > () = nullptr;
     }
-#line 924 "yacc.tab.c"
+#line 944 "frontend/parser/yacc.cpp"
     break;
 
   case 13: // STMT: SLASH_COMMENT
-#line 176 "frontend/parser/yacc.y"
+#line 178 "frontend/parser/yacc.y"
                     {
         yylhs.value.as < FE::AST::StmtNode* > () = nullptr;
     }
-#line 932 "yacc.tab.c"
+#line 952 "frontend/parser/yacc.cpp"
     break;
 
   case 14: // CONTINUE_STMT: CONTINUE SEMICOLON
-#line 183 "frontend/parser/yacc.y"
+#line 185 "frontend/parser/yacc.y"
                        {
         yylhs.value.as < FE::AST::StmtNode* > () = new ContinueStmt(yystack_[1].location.begin.line, yystack_[1].location.begin.column);
     }
-#line 940 "yacc.tab.c"
+#line 960 "frontend/parser/yacc.cpp"
     break;
 
   case 15: // EXPR_STMT: EXPR SEMICOLON
-#line 189 "frontend/parser/yacc.y"
+#line 191 "frontend/parser/yacc.y"
                    {
         yylhs.value.as < FE::AST::StmtNode* > () = new ExprStmt(yystack_[1].value.as < FE::AST::ExprNode* > (), yystack_[1].location.begin.line, yystack_[1].location.begin.column);
     }
-#line 948 "yacc.tab.c"
+#line 968 "frontend/parser/yacc.cpp"
     break;
 
   case 16: // VAR_DECLARATION: TYPE VAR_DECLARATOR_LIST
-#line 195 "frontend/parser/yacc.y"
+#line 197 "frontend/parser/yacc.y"
                              {
         yylhs.value.as < FE::AST::VarDeclaration* > () = new VarDeclaration(yystack_[1].value.as < FE::AST::Type* > (), yystack_[0].value.as < std::vector<FE::AST::VarDeclarator*>* > (), false, yystack_[1].location.begin.line, yystack_[1].location.begin.column);
     }
-#line 956 "yacc.tab.c"
+#line 976 "frontend/parser/yacc.cpp"
     break;
 
   case 17: // VAR_DECLARATION: CONST TYPE VAR_DECLARATOR_LIST
-#line 198 "frontend/parser/yacc.y"
+#line 200 "frontend/parser/yacc.y"
                                      {
         yylhs.value.as < FE::AST::VarDeclaration* > () = new VarDeclaration(yystack_[1].value.as < FE::AST::Type* > (), yystack_[0].value.as < std::vector<FE::AST::VarDeclarator*>* > (), true, yystack_[2].location.begin.line, yystack_[2].location.begin.column);
     }
-#line 964 "yacc.tab.c"
+#line 984 "frontend/parser/yacc.cpp"
     break;
 
   case 19: // FUNC_BODY: LBRACE RBRACE
-#line 208 "frontend/parser/yacc.y"
+#line 210 "frontend/parser/yacc.y"
                   {
         yylhs.value.as < FE::AST::StmtNode* > () = nullptr;
     }
-#line 972 "yacc.tab.c"
+#line 992 "frontend/parser/yacc.cpp"
     break;
 
   case 20: // FUNC_BODY: LBRACE STMT_LIST RBRACE
-#line 211 "frontend/parser/yacc.y"
+#line 213 "frontend/parser/yacc.y"
                               {
         if (!yystack_[1].value.as < std::vector<FE::AST::StmtNode*>* > () || yystack_[1].value.as < std::vector<FE::AST::StmtNode*>* > ()->empty())
         {
@@ -986,72 +1006,72 @@ namespace  FE  {
         }
         else yylhs.value.as < FE::AST::StmtNode* > () = new BlockStmt(yystack_[1].value.as < std::vector<FE::AST::StmtNode*>* > (), yystack_[2].location.begin.line, yystack_[2].location.begin.column);
     }
-#line 990 "yacc.tab.c"
+#line 1010 "frontend/parser/yacc.cpp"
     break;
 
   case 21: // FUNC_DECL_STMT: TYPE IDENT LPAREN PARAM_DECLARATOR_LIST RPAREN FUNC_BODY
-#line 227 "frontend/parser/yacc.y"
+#line 229 "frontend/parser/yacc.y"
                                                              {
         Entry* entry = Entry::getEntry(yystack_[4].value.as < std::string > ());
         yylhs.value.as < FE::AST::StmtNode* > () = new FuncDeclStmt(yystack_[5].value.as < FE::AST::Type* > (), entry, yystack_[2].value.as < std::vector<FE::AST::ParamDeclarator*>* > (), yystack_[0].value.as < FE::AST::StmtNode* > (), yystack_[5].location.begin.line, yystack_[5].location.begin.column);
     }
-#line 999 "yacc.tab.c"
+#line 1019 "frontend/parser/yacc.cpp"
     break;
 
   case 22: // FOR_STMT: FOR LPAREN VAR_DECLARATION SEMICOLON EXPR SEMICOLON EXPR RPAREN STMT
-#line 234 "frontend/parser/yacc.y"
+#line 236 "frontend/parser/yacc.y"
                                                                          {
         VarDeclStmt* initStmt = new VarDeclStmt(yystack_[6].value.as < FE::AST::VarDeclaration* > (), yystack_[6].location.begin.line, yystack_[6].location.begin.column);
         yylhs.value.as < FE::AST::StmtNode* > () = new ForStmt(initStmt, yystack_[4].value.as < FE::AST::ExprNode* > (), yystack_[2].value.as < FE::AST::ExprNode* > (), yystack_[0].value.as < FE::AST::StmtNode* > (), yystack_[8].location.begin.line, yystack_[8].location.begin.column);
     }
-#line 1008 "yacc.tab.c"
+#line 1028 "frontend/parser/yacc.cpp"
     break;
 
   case 23: // FOR_STMT: FOR LPAREN EXPR SEMICOLON EXPR SEMICOLON EXPR RPAREN STMT
-#line 238 "frontend/parser/yacc.y"
+#line 240 "frontend/parser/yacc.y"
                                                                 {
         StmtNode* initStmt = new ExprStmt(yystack_[6].value.as < FE::AST::ExprNode* > (), yystack_[6].value.as < FE::AST::ExprNode* > ()->line_num, yystack_[6].value.as < FE::AST::ExprNode* > ()->col_num);
         yylhs.value.as < FE::AST::StmtNode* > () = new ForStmt(initStmt, yystack_[4].value.as < FE::AST::ExprNode* > (), yystack_[2].value.as < FE::AST::ExprNode* > (), yystack_[0].value.as < FE::AST::StmtNode* > (), yystack_[8].location.begin.line, yystack_[8].location.begin.column);
     }
-#line 1017 "yacc.tab.c"
+#line 1037 "frontend/parser/yacc.cpp"
     break;
 
   case 25: // PARAM_DECLARATOR_LIST: %empty
-#line 266 "frontend/parser/yacc.y"
+#line 268 "frontend/parser/yacc.y"
                 {
         yylhs.value.as < std::vector<FE::AST::ParamDeclarator*>* > () = new std::vector<ParamDeclarator*>();
     }
-#line 1025 "yacc.tab.c"
+#line 1045 "frontend/parser/yacc.cpp"
     break;
 
   case 27: // VAR_DECLARATOR_LIST: VAR_DECLARATOR
-#line 277 "frontend/parser/yacc.y"
+#line 279 "frontend/parser/yacc.y"
                    {
         yylhs.value.as < std::vector<FE::AST::VarDeclarator*>* > () = new std::vector<VarDeclarator*>();
         yylhs.value.as < std::vector<FE::AST::VarDeclarator*>* > ()->push_back(yystack_[0].value.as < FE::AST::VarDeclarator* > ());
     }
-#line 1034 "yacc.tab.c"
+#line 1054 "frontend/parser/yacc.cpp"
     break;
 
   case 28: // VAR_DECLARATOR_LIST: VAR_DECLARATOR_LIST COMMA VAR_DECLARATOR
-#line 281 "frontend/parser/yacc.y"
+#line 283 "frontend/parser/yacc.y"
                                                {
         yylhs.value.as < std::vector<FE::AST::VarDeclarator*>* > () = yystack_[2].value.as < std::vector<FE::AST::VarDeclarator*>* > ();
         yylhs.value.as < std::vector<FE::AST::VarDeclarator*>* > ()->push_back(yystack_[0].value.as < FE::AST::VarDeclarator* > ());
     }
-#line 1043 "yacc.tab.c"
+#line 1063 "frontend/parser/yacc.cpp"
     break;
 
   case 30: // EXPR: NOCOMMA_EXPR
-#line 318 "frontend/parser/yacc.y"
+#line 320 "frontend/parser/yacc.y"
                  {
         yylhs.value.as < FE::AST::ExprNode* > () = yystack_[0].value.as < FE::AST::ExprNode* > ();
     }
-#line 1051 "yacc.tab.c"
+#line 1071 "frontend/parser/yacc.cpp"
     break;
 
   case 31: // EXPR: EXPR COMMA NOCOMMA_EXPR
-#line 321 "frontend/parser/yacc.y"
+#line 323 "frontend/parser/yacc.y"
                               {
         if (yystack_[2].value.as < FE::AST::ExprNode* > ()->isCommaExpr()) {
             CommaExpr* ce = static_cast<CommaExpr*>(yystack_[2].value.as < FE::AST::ExprNode* > ());
@@ -1064,27 +1084,27 @@ namespace  FE  {
             yylhs.value.as < FE::AST::ExprNode* > () = new CommaExpr(vec, yystack_[2].value.as < FE::AST::ExprNode* > ()->line_num, yystack_[2].value.as < FE::AST::ExprNode* > ()->col_num);
         }
     }
-#line 1068 "yacc.tab.c"
+#line 1088 "frontend/parser/yacc.cpp"
     break;
 
   case 32: // NOCOMMA_EXPR: LOGICAL_OR_EXPR
-#line 336 "frontend/parser/yacc.y"
+#line 338 "frontend/parser/yacc.y"
                     {
         yylhs.value.as < FE::AST::ExprNode* > () = yystack_[0].value.as < FE::AST::ExprNode* > ();
     }
-#line 1076 "yacc.tab.c"
+#line 1096 "frontend/parser/yacc.cpp"
     break;
 
   case 33: // NOCOMMA_EXPR: ASSIGN_EXPR
-#line 339 "frontend/parser/yacc.y"
+#line 341 "frontend/parser/yacc.y"
                   {
         yylhs.value.as < FE::AST::ExprNode* > () = yystack_[0].value.as < FE::AST::ExprNode* > ();
     }
-#line 1084 "yacc.tab.c"
+#line 1104 "frontend/parser/yacc.cpp"
     break;
 
 
-#line 1088 "yacc.tab.c"
+#line 1108 "frontend/parser/yacc.cpp"
 
             default:
               break;
@@ -1436,19 +1456,19 @@ namespace  FE  {
   }
 
 
-  const signed char  YaccParser ::yypact_ninf_ = -20;
+  const signed char  YaccParser ::yypact_ninf_ = -21;
 
   const signed char  YaccParser ::yytable_ninf_ = -19;
 
   const signed char
    YaccParser ::yypact_[] =
   {
-      32,   -20,   -19,   -12,   -20,     1,    29,   -20,   -20,   -20,
-     -20,   -20,   -20,   -20,   -20,   -14,   -20,   -20,    13,     3,
-     -20,   -20,   -20,   -20,   -20,   -20,     8,   -20,     5,    12,
-     -20,   -20,   -20,   -20,   -20,   -20,   -20,    16,    11,    16,
-      33,    35,   -20,    14,   -20,   -20,   -20,    -1,   -20,    -8,
-       0,   -20,     4,    32,    32,   -20,   -20,   -20
+      31,   -21,   -20,   -14,   -21,     1,    28,   -21,   -21,   -21,
+     -21,   -21,   -21,   -21,   -21,    -1,   -21,   -21,    14,     5,
+     -21,   -21,   -21,   -21,   -21,   -21,     0,   -21,     8,    11,
+     -21,   -21,   -21,   -21,   -21,   -21,   -21,    12,    13,    12,
+      32,    34,   -21,    16,   -21,   -21,   -21,    -2,   -21,   -16,
+      -9,   -21,     3,    31,    31,   -21,   -21,   -21
   };
 
   const signed char
@@ -1465,8 +1485,8 @@ namespace  FE  {
   const signed char
    YaccParser ::yypgoto_[] =
   {
-     -20,   -20,    -4,    -6,   -20,   -20,   -20,   -20,   -20,   -20,
-     -20,   -20,   -20,     9,    24,   -20,   -17,    20,   -20,   -15
+     -21,   -21,    -7,    -6,   -21,   -21,   -21,   -21,   -21,   -21,
+     -21,   -21,   -21,     9,    24,   -21,   -17,    20,   -21,   -15
   };
 
   const signed char
@@ -1479,43 +1499,43 @@ namespace  FE  {
   const signed char
    YaccParser ::yytable_[] =
   {
-      23,    21,    29,    19,    30,     1,    24,    25,    20,     2,
-       1,     3,    33,    25,     2,    53,     3,    40,    41,     4,
-      26,    25,    27,    54,     4,    34,    51,    49,    50,    22,
-      32,    55,    35,    25,    43,     1,   -18,    42,     1,     2,
-      47,     3,     2,    52,     3,    31,    23,    56,    57,     4,
+      23,    21,    29,    19,    30,     1,    25,    20,    53,     2,
+       1,     3,    33,    25,     2,    54,     3,    40,    41,     4,
+      24,    25,    26,    32,     4,    27,    51,    49,    50,    34,
+      22,    55,    35,    25,    42,     1,   -18,    43,     1,     2,
+      52,     3,     2,    47,     3,    31,    23,    56,    57,     4,
      -18,    46,     4,    44,    25,    45,    25,    39
   };
 
   const signed char
    YaccParser ::yycheck_[] =
   {
-       6,     0,    19,    22,    19,     6,    20,    21,    20,    10,
-       6,    12,    27,    21,    10,    23,    12,    34,    35,    20,
-       7,    21,    19,    23,    20,    20,    27,    44,    45,    28,
-      22,    27,    20,    21,    23,     6,     7,    21,     6,    10,
-      26,    12,    10,    47,    12,    25,    52,    53,    54,    20,
-      21,    42,    20,    20,    21,    20,    21,    33
+       6,     0,    19,    23,    19,     7,    22,    21,    24,    11,
+       7,    13,    27,    22,    11,    24,    13,    34,    35,    21,
+      21,    22,     8,    23,    21,    20,    28,    44,    45,    21,
+      29,    28,    21,    22,    22,     7,     8,    24,     7,    11,
+      47,    13,    11,    27,    13,    25,    52,    53,    54,    21,
+      22,    42,    21,    21,    22,    21,    22,    33
   };
 
   const signed char
    YaccParser ::yystos_[] =
   {
-       0,     6,    10,    12,    20,    31,    32,    33,    34,    35,
-      37,    39,    40,    41,    45,    46,    47,    48,    49,    22,
-      20,     0,    28,    33,    20,    21,     7,    19,    36,    46,
-      49,    47,    22,    49,    20,    20,    43,    44,    42,    44,
-      46,    46,    21,    23,    20,    20,    43,    26,    38,    46,
-      46,    27,    32,    23,    23,    27,    33,    33
+       0,     7,    11,    13,    21,    32,    33,    34,    35,    36,
+      38,    40,    41,    42,    46,    47,    48,    49,    50,    23,
+      21,     0,    29,    34,    21,    22,     8,    20,    37,    47,
+      50,    48,    23,    50,    21,    21,    44,    45,    43,    45,
+      47,    47,    22,    24,    21,    21,    44,    27,    39,    47,
+      47,    28,    33,    24,    24,    28,    34,    34
   };
 
   const signed char
    YaccParser ::yyr1_[] =
   {
-       0,    30,    31,    31,    32,    32,    33,    33,    33,    33,
-      33,    33,    33,    33,    34,    35,    36,    36,    37,    38,
-      38,    39,    40,    40,    41,    42,    43,    44,    44,    45,
-      46,    46,    47,    47,    48,    49
+       0,    31,    32,    32,    33,    33,    34,    34,    34,    34,
+      34,    34,    34,    34,    35,    36,    37,    37,    38,    39,
+      39,    40,    41,    41,    42,    43,    44,    45,    45,    46,
+      47,    47,    48,    48,    49,    50
   };
 
   const signed char
@@ -1535,14 +1555,15 @@ namespace  FE  {
   const  YaccParser ::yytname_[] =
   {
   "\"end of file\"", "error", "\"invalid token\"", "INT_CONST",
-  "STR_CONST", "ERR_TOKEN", "SLASH_COMMENT", "IDENT", "IF", "ELSE", "FOR",
-  "WHILE", "CONTINUE", "BREAK", "SWITCH", "CASE", "GOTO", "DO", "RETURN",
-  "CONST", "SEMICOLON", "COMMA", "LPAREN", "RPAREN", "LBRACKET",
-  "RBRACKET", "LBRACE", "RBRACE", "END", "THEN", "$accept", "PROGRAM",
-  "STMT_LIST", "STMT", "CONTINUE_STMT", "EXPR_STMT", "VAR_DECLARATION",
-  "VAR_DECL_STMT", "FUNC_BODY", "FUNC_DECL_STMT", "FOR_STMT", "IF_STMT",
-  "PARAM_DECLARATOR_LIST", "VAR_DECLARATOR", "VAR_DECLARATOR_LIST",
-  "ASSIGN_EXPR", "EXPR", "NOCOMMA_EXPR", "LOGICAL_OR_EXPR", "TYPE", YY_NULLPTR
+  "FLOAT_CONST", "STR_CONST", "ERR_TOKEN", "SLASH_COMMENT", "IDENT", "IF",
+  "ELSE", "FOR", "WHILE", "CONTINUE", "BREAK", "SWITCH", "CASE", "GOTO",
+  "DO", "RETURN", "CONST", "SEMICOLON", "COMMA", "LPAREN", "RPAREN",
+  "LBRACKET", "RBRACKET", "LBRACE", "RBRACE", "END", "THEN", "$accept",
+  "PROGRAM", "STMT_LIST", "STMT", "CONTINUE_STMT", "EXPR_STMT",
+  "VAR_DECLARATION", "VAR_DECL_STMT", "FUNC_BODY", "FUNC_DECL_STMT",
+  "FOR_STMT", "IF_STMT", "PARAM_DECLARATOR_LIST", "VAR_DECLARATOR",
+  "VAR_DECLARATOR_LIST", "ASSIGN_EXPR", "EXPR", "NOCOMMA_EXPR",
+  "LOGICAL_OR_EXPR", "TYPE", YY_NULLPTR
   };
 #endif
 
@@ -1551,10 +1572,10 @@ namespace  FE  {
   const short
    YaccParser ::yyrline_[] =
   {
-       0,   134,   134,   138,   144,   148,   155,   158,   161,   164,
-     167,   170,   173,   176,   183,   189,   195,   198,   203,   208,
-     211,   227,   234,   238,   244,   266,   272,   277,   281,   302,
-     318,   321,   336,   339,   344,   442
+       0,   136,   136,   140,   146,   150,   157,   160,   163,   166,
+     169,   172,   175,   178,   185,   191,   197,   200,   205,   210,
+     213,   229,   236,   240,   246,   268,   274,   279,   283,   304,
+     320,   323,   338,   341,   346,   444
   };
 
   void
@@ -1587,9 +1608,9 @@ namespace  FE  {
 
 #line 4 "frontend/parser/yacc.y"
 } //  FE 
-#line 1591 "yacc.tab.c"
+#line 1612 "frontend/parser/yacc.cpp"
 
-#line 450 "frontend/parser/yacc.y"
+#line 452 "frontend/parser/yacc.y"
 
 
 void FE::YaccParser::error(const FE::location& location, const std::string& message)

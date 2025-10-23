@@ -31,12 +31,12 @@
 // version 2.2 of Bison.
 
 /**
- ** \file location.hh
+ ** \file frontend/parser/location.hh
  ** Define the  FE ::location class.
  */
 
-#ifndef YY_YY_LOCATION_HH_INCLUDED
-# define YY_YY_LOCATION_HH_INCLUDED
+#ifndef YY_YY_FRONTEND_PARSER_LOCATION_HH_INCLUDED
+# define YY_YY_FRONTEND_PARSER_LOCATION_HH_INCLUDED
 
 # include <iostream>
 # include <string>
@@ -55,7 +55,7 @@
 
 #line 4 "frontend/parser/yacc.y"
 namespace  FE  {
-#line 59 "location.hh"
+#line 59 "frontend/parser/location.hh"
 
   /// A point in a source file.
   class position
@@ -301,6 +301,6 @@ namespace  FE  {
 
 #line 4 "frontend/parser/yacc.y"
 } //  FE 
-#line 305 "location.hh"
+#line 305 "frontend/parser/location.hh"
 
-#endif // !YY_YY_LOCATION_HH_INCLUDED
+#endif // !YY_YY_FRONTEND_PARSER_LOCATION_HH_INCLUDED

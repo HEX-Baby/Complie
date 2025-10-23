@@ -8,8 +8,6 @@ namespace FE
 
     void Parser::reportError(const location& loc, const std::string& message) { _parser.error(loc, message); }
 
-
-    // 这一函数完成 词法分析阶段，逐个从 Flex 扫描器中取出 token：
     std::vector<Token> Parser::parseTokens_impl()
     {
         std::vector<Token> tokens;
@@ -52,33 +50,3 @@ namespace FE
         return ast;
     }
 }  // namespace FE
-
-
-
-// | 文件                          | 作用                                                             |
-// | --------------------------- | -------------------------------------------------------------- |
-// | `iparser.h`                 | 泛型接口模板，定义 `parseTokens()` / `parseAST()` 两个统一入口                |
-// | `parser.h`                  | 继承自 `iParser` 的具体实现类，整合 `Scanner`（词法分析）与 `YaccParser`（语法分析）    |
-// | `scanner.h`                 | 封装 `FlexLexer`，定义 `nextToken()`，用于生成 `YaccParser::symbol_type` |
-// | `parser.cpp`                | 实现了 `Parser` 的具体逻辑，包括 token 流提取与 AST 生成                        |
-
-
-// +------------------+
-// |  iParser<Parser> |
-// |  (抽象接口模板)  |
-// +--------^---------+
-//          |
-//          |
-// +--------+--------+           +------------------+
-// |      Parser     |<----------|    Scanner       |
-// |-----------------|           |------------------|
-// | _parser (Bison) |           | yyFlexLexer 基类 |
-// | _scanner (Flex) |---------->| nextToken()      |
-// | ast (AST::Root) |           +------------------+
-// +--------+--------+
-//          |
-//          v
-//    +-------------+
-//    |   AST::Root |
-//    | (语法树结构) |
-//    +-------------+

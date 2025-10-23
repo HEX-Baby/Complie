@@ -1,31 +1,22 @@
 %{
-    #include <frontend/parser/yacc.h>  // 包含 Yacc/Bison 生成的头文件，通常定义了 token 类型
-    #include <frontend/parser/scanner.h> // 可能是定义 Scanner 类的头文件
-    #include <frontend/parser/location.hh> // 定义了 location 类，用于追踪 token 在源文件中的位置（行号、列号）
-    #include <frontend/parser/parser.h>  // 包含解析器（Parser）的头文件
-    #include <stdexcept>                 // 标准异常库，用于处理像 out_of_range 这样的错误
-    #include <string>                    // C++ 字符串库
-    #include <limits>                   // 用于获取数值类型的最大/最小值
-    #include <cmath>                    // C 数学库，例如用于 pow 函数
-     
+    #include <frontend/parser/yacc.h>
+    #include <frontend/parser/scanner.h>
+    #include <frontend/parser/location.hh>
+    #include <frontend/parser/parser.h>
+    #include <stdexcept>
+    #include <string>
+    #include <limits>
+    #include <cmath>
+
     using namespace FE;
 
     static location loc;
 
-    // YY_USER_ACTION 宏会自动插入到每个规则的代码块开头
-    // 如下方的 "int"               { RETT(INT, loc) }
-    // 实际上会被转换为
-    // "int"               { loc.step(); loc.columns(yyleng); RETT(INT, loc) }
-    // 这样就能自动更新 loc 的位置
-    // yyleng 是当前匹配的字符串的长度
-    #define YY_USER_ACTION      \
-        loc.step();             \
+    #define YY_USER_ACTION  \
+        loc.step();          \
         loc.columns(yyleng);
 
-    #define yywrap() 1
-    #define RETT(x, y) \
-        return YaccParser::make_##x(y);
-
+    #define RETT(x, y) return YaccParser::make_##x(y);
     #define TAB_WIDTH 4
 
     int handleTab();
@@ -35,34 +26,20 @@
 %}
 
 %option c++
-%option noyywrap debug
+%option noyywrap
+%option debug
 %option yyclass="Scanner"
 %option prefix="Yacc_"
 
 %%
 
+\n                  { loc.lines(yyleng); loc.step(); }
+[ \f\r\v]+          { /* skip */ }
+[\t]                { loc.columns(handleTab()); }
+
 %{
-/*
-在词法分析中，你需要重点考虑result的四种类型，分别为int_token, float_token, string_token, symbol_token。
-之所以要定义这四种类型，是因为我们只返回这个token的类型是不够的，我们还需要知道这个token的属性。
-例如我们需要知道INT_CONST具体的值是多少。
-如果你需要其它 token，需要先到 yacc.y 中定义 token，然后在这里实现。
-
-每一行都是一条规则，格式为 模式 { 动作 }。
-
-TODO(Lab1)：参考SysY2022的定义，实现更多的词法，如浮点数、十六进制/八进制数等
-*/
+// ---------- 关键字 ----------     
 %}
-
-\n              {
-                    loc.lines(yyleng);
-                    loc.step();
-                }
-
-[ \f\r\v]+    { /* empty */ }               // 匹配一个或多个连续出现的空白字符，这些字符只能是空格、换页符、回车符或垂直制表符。
-[\t]    {
-    loc.columns(handleTab());
-}
 
 "if"                { RETT(IF, loc) }
 "else"              { RETT(ELSE, loc) }
@@ -75,146 +52,13 @@ TODO(Lab1)：参考SysY2022的定义，实现更多的词法，如浮点数、�
 "goto"              { RETT(GOTO, loc) }
 "do"                { RETT(DO, loc) }
 "return"            { RETT(RETURN, loc) }
-
 "const"             { RETT(CONST, loc) }
 
+%{
+// ---------- 符号 ---------- 
+%}
 ";"                 { RETT(SEMICOLON, loc) }
 ","                 { RETT(COMMA, loc) }
-
-"//".*              { 
-    auto str = std::string(yytext);
-    // return YaccParser::make_SLASH_COMMENT(str, loc);  //思考为什么要把这一行注释掉
-}
-
-// 回答
-// 注释不应作为语法 token 传递给 parser
-// parser 可能 报错，因为它会收到一个它 不认识的 token (SLASH_COMMENT)； 或者会影响语法树生成
-
-
-
-// ======================= 数字常量 ========================= 开始
-// TODO(Lab1)：参考SysY2022的定义，实现更多的词法，如浮点数、十六进制/八进制数等
-
-// 十六进制整数常量（例如 0x1A3F）
-// 十六进制整数
-0[xX][0-9a-fA-F]+           {
-                                try 
-                                {
-                                    bool isLL = false;
-                                    long long result = convertToInt(yytext, '\0', isLL);
-                                    return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
-                                } 
-                                catch (const std::exception& e) 
-                                {
-                                    _parser.reportError(loc, std::string("Invalid hex constant: ") + e.what());
-                                    return YaccParser::make_ERR_TOKEN(yytext, loc);
-                                }
-                            }
-
-// 八进制整数常量（例如 077）
-0[0-7]+                     {
-                                try 
-                                {
-                                    bool isLL = false;
-                                    long long result = convertToInt(yytext, '\0', isLL);
-                                    return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
-                                } 
-                                catch (const std::exception& e) 
-                                {
-                                    _parser.reportError(loc, std::string("Invalid octal constant: ") + e.what());
-                                    return YaccParser::make_ERR_TOKEN(yytext, loc);
-                                }
-                            }
-
-// 十进制浮点
-([0-9]*\.[0-9]+|[0-9]+\.[0-9]*)([eE][+-]?[0-9]+)?       {
-                                                            try 
-                                                            {
-                                                                float val = convertToFloatDec(yytext);
-                                                                return YaccParser::make_FLOAT_CONST(val, loc);
-                                                            } 
-                                                            catch (const std::exception& e)
-                                                            {
-                                                                _parser.reportError(loc, std::string("Invalid float constant: ") + e.what());
-                                                                return YaccParser::make_ERR_TOKEN(yytext, loc);
-                                                            }
-                                                        }
-
-// 科学计数法形式（整数 + e/E）
-[0-9]+([eE][+-]?[0-9]+)                             {
-                                                        try 
-                                                        {
-                                                            float val = convertToFloatDec(yytext);
-                                                            return YaccParser::make_FLOAT_CONST(val, loc);
-                                                        } 
-                                                        catch (const std::exception& e) 
-                                                        {
-                                                            _parser.reportError(loc, std::string("Invalid float constant: ") + e.what());
-                                                            return YaccParser::make_ERR_TOKEN(yytext, loc);
-                                                        }
-                                                    }
-
-// 十六进制浮点
-0[xX][0-9a-fA-F]+(\.[0-9a-fA-F]*)?[pP][+-]?[0-9]+       {
-                                                            try 
-                                                            {
-                                                                float val = convertToFloatHex(yytext);
-                                                                return YaccParser::make_FLOAT_CONST(val, loc);
-                                                            } 
-                                                            catch (const std::exception& e) 
-                                                            {
-                                                                _parser.reportError(loc, std::string("Invalid hex float constant: ") + e.what());
-                                                                return YaccParser::make_ERR_TOKEN(yytext, loc);
-                                                            }
-                                                        }
-
-// ======================= 数字常量 ========================= 结束
-
-
-
-//TODO(Lab1)：实现多行注释的处理，包括修改上方的匹配规则
-
-// ======================= 多行注释 ========================= 开始
-
-"/*"([^*]|\*+[^*/])*\*+"/"              {
-                                            // 支持多行注释，跨越多行时要更新行号
-                                            for (int i = 0; i < yyleng; ++i) 
-                                            {
-                                                if (yytext[i] == '\n') 
-                                                {
-                                                    loc.lines(1);
-                                                    loc.step();
-                                                }
-                                            }
-                                        }
-// ======================= 多行注释 ========================= 结束
-
-
-
-[A-Za-z_]+[A-Za-z0-9_]* {
-    auto str = std::string(yytext);
-    return YaccParser::make_IDENT(str, loc); 
-}
-
-\"[^\"]*\"          { 
-    std::string str(yytext);
-    if (!str.empty()) str = str.substr(1, str.size() - 2);
-    return YaccParser::make_STR_CONST(str, loc); 
-}
-
-[1-9][0-9]* {
-    try {
-        bool isLL = false;
-        long long result = convertToInt(yytext, '\0', isLL);
-        // if (isLL) return YaccParser::make_LL_CONST(result, loc);
-        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
-    } catch (const std::exception& e) {
-        _parser.reportError(loc, std::string("Error parsing hexadecimal int: ") + e.what());
-        auto str = std::string(yytext);
-        return YaccParser::make_ERR_TOKEN(str, loc);
-    }
-}
-
 "("                 { RETT(LPAREN, loc) }
 ")"                 { RETT(RPAREN, loc) }
 "["                 { RETT(LBRACKET, loc) }
@@ -222,7 +66,113 @@ TODO(Lab1)：参考SysY2022的定义，实现更多的词法，如浮点数、�
 "{"                 { RETT(LBRACE, loc) }
 "}"                 { RETT(RBRACE, loc) }
 
-<<EOF>>         { RETT(END, loc); }
+%{
+// ---------- 单行注释 ---------- 
+%}
+
+"//".*              { /* ignore single-line comment */ }
+
+
+%{
+// ---------- 多行注释 ---------- 
+%}
+
+"/*"([^*]|\*+[^*/])*\*+"/"   {
+                                for (int i = 0; i < yyleng; ++i)
+                                    if (yytext[i] == '\n') { loc.lines(1); loc.step(); }
+                             }
+
+%{
+// ---------- 浮点数 ---------- 
+%}
+
+0[xX][0-9A-Fa-f]+(\.[0-9A-Fa-f]*)?[pP][+-]?[0-9]+  {
+    try {
+        float val = convertToFloatHex(yytext);
+        return YaccParser::make_FLOAT_CONST(val, loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid hex float constant: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+([0-9]*\.[0-9]+|[0-9]+\.[0-9]*)([eE][+-]?[0-9]+)?    {
+    try {
+        float val = convertToFloatDec(yytext);
+        return YaccParser::make_FLOAT_CONST(val, loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid float constant: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+[0-9]+([eE][+-]?[0-9]+)  {
+    try {
+        float val = convertToFloatDec(yytext);
+        return YaccParser::make_FLOAT_CONST(val, loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid scientific float: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+%{
+// ---------- 整数 ---------- 
+%}
+
+0[xX][0-9A-Fa-f]+     {
+    bool isLL = false;
+    try {
+        long long result = convertToInt(yytext, '\0', isLL);
+        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid hex int: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+0[0-7]+              {
+    bool isLL = false;
+    try {
+        long long result = convertToInt(yytext, '\0', isLL);
+        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid octal int: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+0|[1-9][0-9]*        {
+    bool isLL = false;
+    try {
+        long long result = convertToInt(yytext, '\0', isLL);
+        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid decimal int: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+%{
+// ---------- 标识符 & 字符串 ---------- 
+%}
+
+[A-Za-z_][A-Za-z0-9_]* {
+    std::string str(yytext);
+    return YaccParser::make_IDENT(str, loc);
+}
+
+\"[^\"]*\"  {
+    std::string str(yytext);
+    if (str.size() >= 2) str = str.substr(1, str.size() - 2);
+    return YaccParser::make_STR_CONST(str, loc);
+}
+
+%{
+// ---------- 文件结束 ---------- 
+%}
+
+<<EOF>>     { RETT(END, loc); }
 
 %%
 
