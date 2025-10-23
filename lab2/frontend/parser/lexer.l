@@ -181,10 +181,15 @@
 // 4. 十六进制整数 (0x1A3F)
 %}
 0[xX][0-9A-Fa-f]+     {
-    bool isLL = false;
     try {
+        bool isLL = false;
         long long result = convertToInt(yytext, '\0', isLL);
-        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+
+        if (result >= INT32_MIN && result <= INT32_MAX) {
+            return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+        } else {
+            return YaccParser::make_LL_CONST(result, loc);
+        }
     } catch (const std::exception& e) {
         _parser.reportError(loc, std::string("Invalid hex int: ") + e.what());
         return YaccParser::make_ERR_TOKEN(yytext, loc);
@@ -195,10 +200,15 @@
 // 5. 八进制整数 (077)
 %}
 0[0-7]+              {
-    bool isLL = false;
     try {
+        bool isLL = false;
         long long result = convertToInt(yytext, '\0', isLL);
-        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+
+        if (result >= INT32_MIN && result <= INT32_MAX) {
+            return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+        } else {
+            return YaccParser::make_LL_CONST(result, loc);
+        }
     } catch (const std::exception& e) {
         _parser.reportError(loc, std::string("Invalid octal int: ") + e.what());
         return YaccParser::make_ERR_TOKEN(yytext, loc);
@@ -209,15 +219,21 @@
 // 6. 十进制整数 (0, 123)
 %}
 0|[1-9][0-9]*        {
-    bool isLL = false;
     try {
+        bool isLL = false;
         long long result = convertToInt(yytext, '\0', isLL);
-        return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+
+        if (result >= INT32_MIN && result <= INT32_MAX) {
+            return YaccParser::make_INT_CONST(static_cast<int>(result), loc);
+        } else {
+            return YaccParser::make_LL_CONST(result, loc);
+        }
     } catch (const std::exception& e) {
         _parser.reportError(loc, std::string("Invalid decimal int: ") + e.what());
         return YaccParser::make_ERR_TOKEN(yytext, loc);
     }
 }
+
 
 
 %{
