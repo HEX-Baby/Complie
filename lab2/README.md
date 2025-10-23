@@ -32,11 +32,15 @@ mkdir -p lexer_results
 
 
 # 运行词法分析并保存输出结果
+```
 ./bin/compiler -lexer -o lexer_results/simple.out testcase/lexer/simple.sy
 ./bin/compiler -lexer -o lexer_results/withfloat.out testcase/lexer/withfloat.sy
 ./bin/compiler -lexer -o lexer_results/witharray.out testcase/lexer/witharray.sy
+```
 
 # 对比输出结果与标准答案，保存 diff 结果
+```
 diff lexer_results/simple.out testcase/lexer/simple.lexer > lexer_results/simple.diff
 diff lexer_results/withfloat.out testcase/lexer/withfloat.lexer > lexer_results/withfloat.diff
 diff lexer_results/witharray.out testcase/lexer/witharray.lexer > lexer_results/witharray.diff
+```
