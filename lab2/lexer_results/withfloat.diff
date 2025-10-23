@@ -1,278 +1,88 @@
-1,2c1,2
-< ==========+++++++++======+++++=======+=*=/==>Token                         Lexeme                        Property                      Line    Column  
-< IDENT                         float                         float                         1       0       
----
-> Token                         Lexeme                        Property                      Line    Column  
-> FLOAT                         float                                                       1       0       
-7c7
-< IDENT                         float                         float                         3       4       
----
-> FLOAT                         float                                                       3       4       
-9c9,10
+10c10
 < FLOAT_CONST                   3.14                                                        3       14      
 ---
-> ASSIGN                        =                                                           3       12      
 > FLOAT_CONST                   3.14                          3.14                          3       14      
-11c12
-< IDENT                         float                         float                         4       4       
----
-> FLOAT                         float                                                       4       4       
-13c14,15
+15c15
 < FLOAT_CONST                   0.5                                                         4       14      
 ---
-> ASSIGN                        =                                                           4       12      
 > FLOAT_CONST                   0.5                           0.5                           4       14      
-15c17
-< IDENT                         float                         float                         5       4       
----
-> FLOAT                         float                                                       5       4       
-17c19,20
+20c20
 < FLOAT_CONST                   123.456                                                     5       14      
 ---
-> ASSIGN                        =                                                           5       12      
 > FLOAT_CONST                   123.456                       123.456                       5       14      
-19c22
-< IDENT                         float                         float                         6       4       
----
-> FLOAT                         float                                                       6       4       
-21c24,25
+25c25
 < FLOAT_CONST                   .5                                                          6       14      
 ---
-> ASSIGN                        =                                                           6       12      
 > FLOAT_CONST                   .5                            0.5                           6       14      
-23c27
-< IDENT                         float                         float                         7       4       
----
-> FLOAT                         float                                                       7       4       
-25c29,30
+30c30
 < FLOAT_CONST                   5.                                                          7       14      
 ---
-> ASSIGN                        =                                                           7       12      
 > FLOAT_CONST                   5.                            5                             7       14      
-27c32
-< IDENT                         float                         float                         9       4       
----
-> FLOAT                         float                                                       9       4       
-29c34,35
+35c35
 < FLOAT_CONST                   1e10                                                        9       14      
 ---
-> ASSIGN                        =                                                           9       12      
 > FLOAT_CONST                   1e10                          1e+10                         9       14      
-31c37
-< IDENT                         float                         float                         10      4       
----
-> FLOAT                         float                                                       10      4       
-33c39,40
+40c40
 < FLOAT_CONST                   1.5e10                                                      10      14      
 ---
-> ASSIGN                        =                                                           10      12      
 > FLOAT_CONST                   1.5e10                        1.5e+10                       10      14      
-35c42
-< IDENT                         float                         float                         11      4       
----
-> FLOAT                         float                                                       11      4       
-37c44,45
+45c45
 < FLOAT_CONST                   2.5e-3                                                      11      14      
 ---
-> ASSIGN                        =                                                           11      12      
 > FLOAT_CONST                   2.5e-3                        0.0025                        11      14      
-39c47
-< IDENT                         float                         float                         12      4       
----
-> FLOAT                         float                                                       12      4       
-41c49,50
+50c50
 < FLOAT_CONST                   .5E+5                                                       12      14      
 ---
-> ASSIGN                        =                                                           12      12      
 > FLOAT_CONST                   .5E+5                         50000                         12      14      
-43c52
-< IDENT                         float                         float                         13      4       
----
-> FLOAT                         float                                                       13      4       
-45c54,55
+55c55
 < FLOAT_CONST                   3.e-10                                                      13      14      
 ---
-> ASSIGN                        =                                                           13      12      
 > FLOAT_CONST                   3.e-10                        3e-10                         13      14      
-48a59
-> PLUS                          +                                                           15      13      
-49a61
-> PLUS                          +                                                           15      17      
-50a63
-> PLUS                          +                                                           15      21      
-51a65
-> PLUS                          +                                                           15      25      
-52a67
-> PLUS                          +                                                           15      29      
-53a69
-> PLUS                          +                                                           15      33      
-54a71
-> PLUS                          +                                                           15      37      
-55a73
-> PLUS                          +                                                           15      41      
-56a75
-> PLUS                          +                                                           15      45      
-60c79
-< IDENT                         float                         float                         18      0       
----
-> FLOAT                         float                                                       18      0       
-65c84
-< IDENT                         float                         float                         20      4       
----
-> FLOAT                         float                                                       20      4       
-67c86,87
+87c87
 < FLOAT_CONST                   0x1.8p0                                                     20      14      
 ---
-> ASSIGN                        =                                                           20      12      
 > FLOAT_CONST                   0x1.8p0                       1.5                           20      14      
-69c89
-< IDENT                         float                         float                         21      4       
----
-> FLOAT                         float                                                       21      4       
-71c91,92
+92c92
 < FLOAT_CONST                   0xA.Bp2                                                     21      14      
 ---
-> ASSIGN                        =                                                           21      12      
 > FLOAT_CONST                   0xA.Bp2                       42.75                         21      14      
-73c94
-< IDENT                         float                         float                         22      4       
----
-> FLOAT                         float                                                       22      4       
-75c96,97
+97c97
 < FLOAT_CONST                   0x1.0p-3                                                    22      14      
 ---
-> ASSIGN                        =                                                           22      12      
 > FLOAT_CONST                   0x1.0p-3                      0.125                         22      14      
-77c99
-< IDENT                         float                         float                         23      4       
----
-> FLOAT                         float                                                       23      4       
-79c101,102
+102c102
 < FLOAT_CONST                   0xF.Fp10                                                    23      14      
 ---
-> ASSIGN                        =                                                           23      12      
 > FLOAT_CONST                   0xF.Fp10                      16320                         23      14      
-81c104
-< IDENT                         float                         float                         25      4       
----
-> FLOAT                         float                                                       25      4       
-83c106,107
+107c107
 < FLOAT_CONST                   0x1p5                                                       25      14      
 ---
-> ASSIGN                        =                                                           25      12      
 > FLOAT_CONST                   0x1p5                         32                            25      14      
-85c109
-< IDENT                         float                         float                         26      4       
----
-> FLOAT                         float                                                       26      4       
-87c111,112
+112c112
 < FLOAT_CONST                   0xAp-2                                                      26      14      
 ---
-> ASSIGN                        =                                                           26      12      
 > FLOAT_CONST                   0xAp-2                        2.5                           26      14      
-90a116
-> PLUS                          +                                                           28      13      
-91a118
-> PLUS                          +                                                           28      17      
-92a120
-> PLUS                          +                                                           28      21      
-93a122
-> PLUS                          +                                                           28      25      
-94a124
-> PLUS                          +                                                           28      29      
-98c128
-< IDENT                         int                           int                           31      0       
----
-> INT                           int                                                         31      0       
-103c133
-< IDENT                         float                         float                         33      4       
----
-> FLOAT                         float                                                       33      4       
-105c135,136
+136c136
 < FLOAT_CONST                   3.14159                                                     33      21      
 ---
-> ASSIGN                        =                                                           33      19      
 > FLOAT_CONST                   3.14159                       3.14159                       33      21      
-107c138
-< IDENT                         float                         float                         34      4       
----
-> FLOAT                         float                                                       34      4       
-109c140,141
+141c141
 < FLOAT_CONST                   2.71828                                                     34      21      
 ---
-> ASSIGN                        =                                                           34      19      
 > FLOAT_CONST                   2.71828                       2.71828                       34      21      
-111c143
-< IDENT                         float                         float                         35      4       
----
-> FLOAT                         float                                                       35      4       
-113c145,146
+146c146
 < FLOAT_CONST                   1e-10                                                       35      21      
 ---
-> ASSIGN                        =                                                           35      19      
 > FLOAT_CONST                   1e-10                         1e-10                         35      21      
-115c148
-< IDENT                         float                         float                         36      4       
----
-> FLOAT                         float                                                       36      4       
-117c150,151
+151c151
 < FLOAT_CONST                   1.0e20                                                      36      21      
 ---
-> ASSIGN                        =                                                           36      19      
 > FLOAT_CONST                   1.0e20                        1e+20                         36      21      
-119c153
-< IDENT                         float                         float                         37      4       
----
-> FLOAT                         float                                                       37      4       
-121c155,156
+156c156
 < FLOAT_CONST                   0x1.0p-1                                                    37      21      
 ---
-> ASSIGN                        =                                                           37      19      
 > FLOAT_CONST                   0x1.0p-1                      0.5                           37      21      
-123c158
-< IDENT                         float                         float                         38      4       
----
-> FLOAT                         float                                                       38      4       
-125c160,161
+161c161
 < FLOAT_CONST                   0x2.0p0                                                     38      21      
 ---
-> ASSIGN                        =                                                           38      19      
 > FLOAT_CONST                   0x2.0p0                       2                             38      21      
-127c163
-< IDENT                         float                         float                         40      4       
----
-> FLOAT                         float                                                       40      4       
-128a165
-> ASSIGN                        =                                                           40      19      
-129a167
-> PLUS                          +                                                           40      24      
-132c170
-< IDENT                         float                         float                         41      4       
----
-> FLOAT                         float                                                       41      4       
-133a172
-> ASSIGN                        =                                                           41      19      
-134a174
-> STAR                          *                                                           41      27      
-137c177
-< IDENT                         float                         float                         42      4       
----
-> FLOAT                         float                                                       42      4       
-138a179
-> ASSIGN                        =                                                           42      19      
-139a181
-> SLASH                         /                                                           42      29      
-142c184
-< IDENT                         float                         float                         44      4       
----
-> FLOAT                         float                                                       44      4       
-143a186
-> ASSIGN                        =                                                           44      18      
-148c191
-< IDENT                         float                         float                         45      4       
----
-> FLOAT                         float                                                       45      4       
-149a193
-> ASSIGN                        =                                                           45      18      
-156a201
-> GT                            >                                                           47      16      

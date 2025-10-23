@@ -457,20 +457,23 @@ namespace  FE  {
       // INT_CONST
       char dummy8[sizeof (int)];
 
+      // LL_CONST
+      char dummy9[sizeof (long long)];
+
       // STR_CONST
       // ERR_TOKEN
       // SLASH_COMMENT
       // IDENT
-      char dummy9[sizeof (std::string)];
+      char dummy10[sizeof (std::string)];
 
       // PARAM_DECLARATOR_LIST
-      char dummy10[sizeof (std::vector<FE::AST::ParamDeclarator*>*)];
+      char dummy11[sizeof (std::vector<FE::AST::ParamDeclarator*>*)];
 
       // STMT_LIST
-      char dummy11[sizeof (std::vector<FE::AST::StmtNode*>*)];
+      char dummy12[sizeof (std::vector<FE::AST::StmtNode*>*)];
 
       // VAR_DECLARATOR_LIST
-      char dummy12[sizeof (std::vector<FE::AST::VarDeclarator*>*)];
+      char dummy13[sizeof (std::vector<FE::AST::VarDeclarator*>*)];
     };
 
     /// The size of the largest semantic type.
@@ -525,32 +528,66 @@ namespace  FE  {
     TOKEN_YYUNDEF = 257,           // "invalid token"
     TOKEN_INT_CONST = 258,         // INT_CONST
     TOKEN_FLOAT_CONST = 259,       // FLOAT_CONST
-    TOKEN_STR_CONST = 260,         // STR_CONST
-    TOKEN_ERR_TOKEN = 261,         // ERR_TOKEN
-    TOKEN_SLASH_COMMENT = 262,     // SLASH_COMMENT
-    TOKEN_IDENT = 263,             // IDENT
-    TOKEN_IF = 264,                // IF
-    TOKEN_ELSE = 265,              // ELSE
-    TOKEN_FOR = 266,               // FOR
-    TOKEN_WHILE = 267,             // WHILE
-    TOKEN_CONTINUE = 268,          // CONTINUE
-    TOKEN_BREAK = 269,             // BREAK
-    TOKEN_SWITCH = 270,            // SWITCH
-    TOKEN_CASE = 271,              // CASE
-    TOKEN_GOTO = 272,              // GOTO
-    TOKEN_DO = 273,                // DO
-    TOKEN_RETURN = 274,            // RETURN
-    TOKEN_CONST = 275,             // CONST
-    TOKEN_SEMICOLON = 276,         // SEMICOLON
-    TOKEN_COMMA = 277,             // COMMA
-    TOKEN_LPAREN = 278,            // LPAREN
-    TOKEN_RPAREN = 279,            // RPAREN
-    TOKEN_LBRACKET = 280,          // LBRACKET
-    TOKEN_RBRACKET = 281,          // RBRACKET
-    TOKEN_LBRACE = 282,            // LBRACE
-    TOKEN_RBRACE = 283,            // RBRACE
-    TOKEN_END = 284,               // END
-    TOKEN_THEN = 285               // THEN
+    TOKEN_LL_CONST = 260,          // LL_CONST
+    TOKEN_STR_CONST = 261,         // STR_CONST
+    TOKEN_ERR_TOKEN = 262,         // ERR_TOKEN
+    TOKEN_SLASH_COMMENT = 263,     // SLASH_COMMENT
+    TOKEN_IDENT = 264,             // IDENT
+    TOKEN_INT = 265,               // INT
+    TOKEN_FLOAT = 266,             // FLOAT
+    TOKEN_VOID = 267,              // VOID
+    TOKEN_DOUBLE = 268,            // DOUBLE
+    TOKEN_IF = 269,                // IF
+    TOKEN_ELSE = 270,              // ELSE
+    TOKEN_FOR = 271,               // FOR
+    TOKEN_WHILE = 272,             // WHILE
+    TOKEN_CONTINUE = 273,          // CONTINUE
+    TOKEN_BREAK = 274,             // BREAK
+    TOKEN_SWITCH = 275,            // SWITCH
+    TOKEN_CASE = 276,              // CASE
+    TOKEN_GOTO = 277,              // GOTO
+    TOKEN_DO = 278,                // DO
+    TOKEN_RETURN = 279,            // RETURN
+    TOKEN_CONST = 280,             // CONST
+    TOKEN_SEMICOLON = 281,         // SEMICOLON
+    TOKEN_COMMA = 282,             // COMMA
+    TOKEN_LPAREN = 283,            // LPAREN
+    TOKEN_RPAREN = 284,            // RPAREN
+    TOKEN_LBRACKET = 285,          // LBRACKET
+    TOKEN_RBRACKET = 286,          // RBRACKET
+    TOKEN_LBRACE = 287,            // LBRACE
+    TOKEN_RBRACE = 288,            // RBRACE
+    TOKEN_GT = 289,                // GT
+    TOKEN_LT = 290,                // LT
+    TOKEN_GE = 291,                // GE
+    TOKEN_LE = 292,                // LE
+    TOKEN_EQ = 293,                // EQ
+    TOKEN_NEQ = 294,               // NEQ
+    TOKEN_LAND = 295,              // LAND
+    TOKEN_LOR = 296,               // LOR
+    TOKEN_LNOT = 297,              // LNOT
+    TOKEN_BITAND = 298,            // BITAND
+    TOKEN_BITOR = 299,             // BITOR
+    TOKEN_BITXOR = 300,            // BITXOR
+    TOKEN_BITNOT = 301,            // BITNOT
+    TOKEN_PLUS = 302,              // PLUS
+    TOKEN_MINUS = 303,             // MINUS
+    TOKEN_STAR = 304,              // STAR
+    TOKEN_SLASH = 305,             // SLASH
+    TOKEN_MOD = 306,               // MOD
+    TOKEN_ASSIGN = 307,            // ASSIGN
+    TOKEN_ADD_ASSIGN = 308,        // ADD_ASSIGN
+    TOKEN_SUB_ASSIGN = 309,        // SUB_ASSIGN
+    TOKEN_MUL_ASSIGN = 310,        // MUL_ASSIGN
+    TOKEN_DIV_ASSIGN = 311,        // DIV_ASSIGN
+    TOKEN_MOD_ASSIGN = 312,        // MOD_ASSIGN
+    TOKEN_AND_ASSIGN = 313,        // AND_ASSIGN
+    TOKEN_OR_ASSIGN = 314,         // OR_ASSIGN
+    TOKEN_XOR_ASSIGN = 315,        // XOR_ASSIGN
+    TOKEN_LEFT_SHIFT_ASSIGN = 316, // LEFT_SHIFT_ASSIGN
+    TOKEN_RIGHT_SHIFT_ASSIGN = 317, // RIGHT_SHIFT_ASSIGN
+    TOKEN_END = 318,               // END
+    TOKEN_THEN = 319               // THEN
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -567,59 +604,93 @@ namespace  FE  {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 31, ///< Number of tokens.
+        YYNTOKENS = 65, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
         S_INT_CONST = 3,                         // INT_CONST
         S_FLOAT_CONST = 4,                       // FLOAT_CONST
-        S_STR_CONST = 5,                         // STR_CONST
-        S_ERR_TOKEN = 6,                         // ERR_TOKEN
-        S_SLASH_COMMENT = 7,                     // SLASH_COMMENT
-        S_IDENT = 8,                             // IDENT
-        S_IF = 9,                                // IF
-        S_ELSE = 10,                             // ELSE
-        S_FOR = 11,                              // FOR
-        S_WHILE = 12,                            // WHILE
-        S_CONTINUE = 13,                         // CONTINUE
-        S_BREAK = 14,                            // BREAK
-        S_SWITCH = 15,                           // SWITCH
-        S_CASE = 16,                             // CASE
-        S_GOTO = 17,                             // GOTO
-        S_DO = 18,                               // DO
-        S_RETURN = 19,                           // RETURN
-        S_CONST = 20,                            // CONST
-        S_SEMICOLON = 21,                        // SEMICOLON
-        S_COMMA = 22,                            // COMMA
-        S_LPAREN = 23,                           // LPAREN
-        S_RPAREN = 24,                           // RPAREN
-        S_LBRACKET = 25,                         // LBRACKET
-        S_RBRACKET = 26,                         // RBRACKET
-        S_LBRACE = 27,                           // LBRACE
-        S_RBRACE = 28,                           // RBRACE
-        S_END = 29,                              // END
-        S_THEN = 30,                             // THEN
-        S_YYACCEPT = 31,                         // $accept
-        S_PROGRAM = 32,                          // PROGRAM
-        S_STMT_LIST = 33,                        // STMT_LIST
-        S_STMT = 34,                             // STMT
-        S_CONTINUE_STMT = 35,                    // CONTINUE_STMT
-        S_EXPR_STMT = 36,                        // EXPR_STMT
-        S_VAR_DECLARATION = 37,                  // VAR_DECLARATION
-        S_VAR_DECL_STMT = 38,                    // VAR_DECL_STMT
-        S_FUNC_BODY = 39,                        // FUNC_BODY
-        S_FUNC_DECL_STMT = 40,                   // FUNC_DECL_STMT
-        S_FOR_STMT = 41,                         // FOR_STMT
-        S_IF_STMT = 42,                          // IF_STMT
-        S_PARAM_DECLARATOR_LIST = 43,            // PARAM_DECLARATOR_LIST
-        S_VAR_DECLARATOR = 44,                   // VAR_DECLARATOR
-        S_VAR_DECLARATOR_LIST = 45,              // VAR_DECLARATOR_LIST
-        S_ASSIGN_EXPR = 46,                      // ASSIGN_EXPR
-        S_EXPR = 47,                             // EXPR
-        S_NOCOMMA_EXPR = 48,                     // NOCOMMA_EXPR
-        S_LOGICAL_OR_EXPR = 49,                  // LOGICAL_OR_EXPR
-        S_TYPE = 50                              // TYPE
+        S_LL_CONST = 5,                          // LL_CONST
+        S_STR_CONST = 6,                         // STR_CONST
+        S_ERR_TOKEN = 7,                         // ERR_TOKEN
+        S_SLASH_COMMENT = 8,                     // SLASH_COMMENT
+        S_IDENT = 9,                             // IDENT
+        S_INT = 10,                              // INT
+        S_FLOAT = 11,                            // FLOAT
+        S_VOID = 12,                             // VOID
+        S_DOUBLE = 13,                           // DOUBLE
+        S_IF = 14,                               // IF
+        S_ELSE = 15,                             // ELSE
+        S_FOR = 16,                              // FOR
+        S_WHILE = 17,                            // WHILE
+        S_CONTINUE = 18,                         // CONTINUE
+        S_BREAK = 19,                            // BREAK
+        S_SWITCH = 20,                           // SWITCH
+        S_CASE = 21,                             // CASE
+        S_GOTO = 22,                             // GOTO
+        S_DO = 23,                               // DO
+        S_RETURN = 24,                           // RETURN
+        S_CONST = 25,                            // CONST
+        S_SEMICOLON = 26,                        // SEMICOLON
+        S_COMMA = 27,                            // COMMA
+        S_LPAREN = 28,                           // LPAREN
+        S_RPAREN = 29,                           // RPAREN
+        S_LBRACKET = 30,                         // LBRACKET
+        S_RBRACKET = 31,                         // RBRACKET
+        S_LBRACE = 32,                           // LBRACE
+        S_RBRACE = 33,                           // RBRACE
+        S_GT = 34,                               // GT
+        S_LT = 35,                               // LT
+        S_GE = 36,                               // GE
+        S_LE = 37,                               // LE
+        S_EQ = 38,                               // EQ
+        S_NEQ = 39,                              // NEQ
+        S_LAND = 40,                             // LAND
+        S_LOR = 41,                              // LOR
+        S_LNOT = 42,                             // LNOT
+        S_BITAND = 43,                           // BITAND
+        S_BITOR = 44,                            // BITOR
+        S_BITXOR = 45,                           // BITXOR
+        S_BITNOT = 46,                           // BITNOT
+        S_PLUS = 47,                             // PLUS
+        S_MINUS = 48,                            // MINUS
+        S_STAR = 49,                             // STAR
+        S_SLASH = 50,                            // SLASH
+        S_MOD = 51,                              // MOD
+        S_ASSIGN = 52,                           // ASSIGN
+        S_ADD_ASSIGN = 53,                       // ADD_ASSIGN
+        S_SUB_ASSIGN = 54,                       // SUB_ASSIGN
+        S_MUL_ASSIGN = 55,                       // MUL_ASSIGN
+        S_DIV_ASSIGN = 56,                       // DIV_ASSIGN
+        S_MOD_ASSIGN = 57,                       // MOD_ASSIGN
+        S_AND_ASSIGN = 58,                       // AND_ASSIGN
+        S_OR_ASSIGN = 59,                        // OR_ASSIGN
+        S_XOR_ASSIGN = 60,                       // XOR_ASSIGN
+        S_LEFT_SHIFT_ASSIGN = 61,                // LEFT_SHIFT_ASSIGN
+        S_RIGHT_SHIFT_ASSIGN = 62,               // RIGHT_SHIFT_ASSIGN
+        S_END = 63,                              // END
+        S_THEN = 64,                             // THEN
+        S_YYACCEPT = 65,                         // $accept
+        S_PROGRAM = 66,                          // PROGRAM
+        S_STMT_LIST = 67,                        // STMT_LIST
+        S_STMT = 68,                             // STMT
+        S_CONTINUE_STMT = 69,                    // CONTINUE_STMT
+        S_EXPR_STMT = 70,                        // EXPR_STMT
+        S_VAR_DECLARATION = 71,                  // VAR_DECLARATION
+        S_VAR_DECL_STMT = 72,                    // VAR_DECL_STMT
+        S_FUNC_BODY = 73,                        // FUNC_BODY
+        S_FUNC_DECL_STMT = 74,                   // FUNC_DECL_STMT
+        S_FOR_STMT = 75,                         // FOR_STMT
+        S_IF_STMT = 76,                          // IF_STMT
+        S_PARAM_DECLARATOR_LIST = 77,            // PARAM_DECLARATOR_LIST
+        S_VAR_DECLARATOR = 78,                   // VAR_DECLARATOR
+        S_VAR_DECLARATOR_LIST = 79,              // VAR_DECLARATOR_LIST
+        S_ASSIGN_EXPR = 80,                      // ASSIGN_EXPR
+        S_EXPR = 81,                             // EXPR
+        S_NOCOMMA_EXPR = 82,                     // NOCOMMA_EXPR
+        S_LOGICAL_OR_EXPR = 83,                  // LOGICAL_OR_EXPR
+        S_TYPE = 84                              // TYPE
       };
     };
 
@@ -696,6 +767,10 @@ namespace  FE  {
 
       case symbol_kind::S_INT_CONST: // INT_CONST
         value.move< int > (std::move (that.value));
+        break;
+
+      case symbol_kind::S_LL_CONST: // LL_CONST
+        value.move< long long > (std::move (that.value));
         break;
 
       case symbol_kind::S_STR_CONST: // STR_CONST
@@ -853,6 +928,20 @@ namespace  FE  {
 #endif
 
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, long long&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const long long& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -974,6 +1063,10 @@ switch (yykind)
         value.template destroy< int > ();
         break;
 
+      case symbol_kind::S_LL_CONST: // LL_CONST
+        value.template destroy< long long > ();
+        break;
+
       case symbol_kind::S_STR_CONST: // STR_CONST
       case symbol_kind::S_ERR_TOKEN: // ERR_TOKEN
       case symbol_kind::S_SLASH_COMMENT: // SLASH_COMMENT
@@ -1092,7 +1185,7 @@ switch (yykind)
 #if !defined _MSC_VER || defined __clang__
         YY_ASSERT (tok == token::TOKEN_YYEOF
                    || (token::TOKEN_YYerror <= tok && tok <= token::TOKEN_YYUNDEF)
-                   || (token::TOKEN_IF <= tok && tok <= token::TOKEN_THEN));
+                   || (token::TOKEN_INT <= tok && tok <= token::TOKEN_THEN));
 #endif
       }
 #if 201103L <= YY_CPLUSPLUS
@@ -1117,6 +1210,18 @@ switch (yykind)
       {
 #if !defined _MSC_VER || defined __clang__
         YY_ASSERT (tok == token::TOKEN_INT_CONST);
+#endif
+      }
+#if 201103L <= YY_CPLUSPLUS
+      symbol_type (int tok, long long v, location_type l)
+        : super_type (token_kind_type (tok), std::move (v), std::move (l))
+#else
+      symbol_type (int tok, const long long& v, const location_type& l)
+        : super_type (token_kind_type (tok), v, l)
+#endif
+      {
+#if !defined _MSC_VER || defined __clang__
+        YY_ASSERT (tok == token::TOKEN_LL_CONST);
 #endif
       }
 #if 201103L <= YY_CPLUSPLUS
@@ -1257,6 +1362,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_LL_CONST (long long v, location_type l)
+      {
+        return symbol_type (token::TOKEN_LL_CONST, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LL_CONST (const long long& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LL_CONST, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_STR_CONST (std::string v, location_type l)
       {
         return symbol_type (token::TOKEN_STR_CONST, std::move (v), std::move (l));
@@ -1312,6 +1432,66 @@ switch (yykind)
       make_IDENT (const std::string& v, const location_type& l)
       {
         return symbol_type (token::TOKEN_IDENT, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_INT (location_type l)
+      {
+        return symbol_type (token::TOKEN_INT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_INT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_INT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FLOAT (location_type l)
+      {
+        return symbol_type (token::TOKEN_FLOAT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_FLOAT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_FLOAT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_VOID (location_type l)
+      {
+        return symbol_type (token::TOKEN_VOID, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_VOID (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_VOID, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DOUBLE (location_type l)
+      {
+        return symbol_type (token::TOKEN_DOUBLE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DOUBLE (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_DOUBLE, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1612,6 +1792,441 @@ switch (yykind)
       make_RBRACE (const location_type& l)
       {
         return symbol_type (token::TOKEN_RBRACE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_GT (location_type l)
+      {
+        return symbol_type (token::TOKEN_GT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_GT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_GT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LT (location_type l)
+      {
+        return symbol_type (token::TOKEN_LT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_GE (location_type l)
+      {
+        return symbol_type (token::TOKEN_GE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_GE (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_GE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LE (location_type l)
+      {
+        return symbol_type (token::TOKEN_LE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LE (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_EQ (location_type l)
+      {
+        return symbol_type (token::TOKEN_EQ, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_EQ (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_EQ, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_NEQ (location_type l)
+      {
+        return symbol_type (token::TOKEN_NEQ, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_NEQ (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_NEQ, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LAND (location_type l)
+      {
+        return symbol_type (token::TOKEN_LAND, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LAND (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LAND, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LOR (location_type l)
+      {
+        return symbol_type (token::TOKEN_LOR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LOR (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LOR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LNOT (location_type l)
+      {
+        return symbol_type (token::TOKEN_LNOT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LNOT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LNOT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BITAND (location_type l)
+      {
+        return symbol_type (token::TOKEN_BITAND, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BITAND (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_BITAND, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BITOR (location_type l)
+      {
+        return symbol_type (token::TOKEN_BITOR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BITOR (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_BITOR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BITXOR (location_type l)
+      {
+        return symbol_type (token::TOKEN_BITXOR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BITXOR (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_BITXOR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BITNOT (location_type l)
+      {
+        return symbol_type (token::TOKEN_BITNOT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BITNOT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_BITNOT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PLUS (location_type l)
+      {
+        return symbol_type (token::TOKEN_PLUS, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PLUS (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_PLUS, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MINUS (location_type l)
+      {
+        return symbol_type (token::TOKEN_MINUS, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MINUS (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_MINUS, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_STAR (location_type l)
+      {
+        return symbol_type (token::TOKEN_STAR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_STAR (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_STAR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SLASH (location_type l)
+      {
+        return symbol_type (token::TOKEN_SLASH, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SLASH (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_SLASH, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MOD (location_type l)
+      {
+        return symbol_type (token::TOKEN_MOD, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MOD (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_MOD, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ADD_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_ADD_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ADD_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_ADD_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SUB_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_SUB_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SUB_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_SUB_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MUL_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_MUL_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MUL_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_MUL_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DIV_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_DIV_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DIV_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_DIV_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MOD_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_MOD_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MOD_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_MOD_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_AND_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_AND_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_AND_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_AND_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_OR_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_OR_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_OR_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_OR_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_XOR_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_XOR_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_XOR_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_XOR_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LEFT_SHIFT_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_LEFT_SHIFT_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LEFT_SHIFT_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LEFT_SHIFT_ASSIGN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RIGHT_SHIFT_ASSIGN (location_type l)
+      {
+        return symbol_type (token::TOKEN_RIGHT_SHIFT_ASSIGN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RIGHT_SHIFT_ASSIGN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_RIGHT_SHIFT_ASSIGN, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1974,7 +2589,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 57,     ///< Last index in yytable_.
+      yylast_ = 63,     ///< Last index in yytable_.
       yynnts_ = 20,  ///< Number of nonterminal symbols.
       yyfinal_ = 21 ///< Termination state number.
     };
@@ -2024,10 +2639,13 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
+      55,    56,    57,    58,    59,    60,    61,    62,    63,    64
     };
     // Last valid token kind.
-    const int code_max = 285;
+    const int code_max = 319;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -2086,6 +2704,10 @@ switch (yykind)
 
       case symbol_kind::S_INT_CONST: // INT_CONST
         value.copy< int > (YY_MOVE (that.value));
+        break;
+
+      case symbol_kind::S_LL_CONST: // LL_CONST
+        value.copy< long long > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_STR_CONST: // STR_CONST
@@ -2180,6 +2802,10 @@ switch (yykind)
         value.move< int > (YY_MOVE (s.value));
         break;
 
+      case symbol_kind::S_LL_CONST: // LL_CONST
+        value.move< long long > (YY_MOVE (s.value));
+        break;
+
       case symbol_kind::S_STR_CONST: // STR_CONST
       case symbol_kind::S_ERR_TOKEN: // ERR_TOKEN
       case symbol_kind::S_SLASH_COMMENT: // SLASH_COMMENT
@@ -2266,7 +2892,7 @@ switch (yykind)
 
 #line 4 "frontend/parser/yacc.y"
 } //  FE 
-#line 2270 "frontend/parser/yacc.h"
+#line 2896 "frontend/parser/yacc.h"
 
 
 

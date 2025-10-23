@@ -54,9 +54,15 @@
 "return"            { RETT(RETURN, loc) }
 "const"             { RETT(CONST, loc) }
 
+"int"               { RETT(INT, loc)}
+"float"             { RETT(FLOAT, loc)}
+"void"              { RETT(VOID, loc)}
+"double"            { RETT(DOUBLE, loc)}
+
 %{
 // ---------- 符号 ---------- 
 %}
+
 ";"                 { RETT(SEMICOLON, loc) }
 ","                 { RETT(COMMA, loc) }
 "("                 { RETT(LPAREN, loc) }
@@ -67,10 +73,52 @@
 "}"                 { RETT(RBRACE, loc) }
 
 %{
+// ====================== 算术运算符 ======================
+%}
+"+"                 { RETT(PLUS, loc) }
+"-"                 { RETT(MINUS, loc) }
+"*"                 { RETT(STAR, loc) }
+"/"                 { RETT(SLASH, loc) }
+"%"                 { RETT(MOD, loc) }  
+
+
+%{
+// ====================== 关系运算符 ======================
+%}
+"!="                { RETT(NEQ, loc) }
+"=="                { RETT(EQ, loc) }
+"<="                { RETT(LE, loc) }
+"<"                 { RETT(LT, loc) }
+">="                { RETT(GE, loc) }
+">"                 { RETT(GT, loc) }
+
+"="                 { RETT(ASSIGN, loc) }
+
+%{
+// ====================== 逻辑运算符 ======================
+%}
+"&&"      { RETT(LAND, loc) }        // 逻辑与
+"||"      { RETT(LOR, loc) }         // 逻辑或
+"!"       { RETT(LNOT, loc) }        // 逻辑非
+
+%{
+// ====================== 位运算符 ======================
+%}
+"&"       { RETT(BITAND, loc) }      // 按位与
+"|"       { RETT(BITOR, loc) }       // 按位或
+"^"       { RETT(BITXOR, loc) }      // 按位异或
+"~"       { RETT(BITNOT, loc) }      // 按位取反
+
+
+
+%{
 // ---------- 单行注释 ---------- 
 %}
 
-"//".*              { /* ignore single-line comment */ }
+"//".*              { 
+    auto str = std::string(yytext);
+    // return YaccParser::make_SLASH_COMMENT(str, loc);  //思考为什么要把这一行注释掉
+}
 
 
 %{
@@ -86,6 +134,9 @@
 // ---------- 浮点数 ---------- 
 %}
 
+%{
+// 1. 十六进制浮点数 (0x1.Ap2)
+%}
 0[xX][0-9A-Fa-f]+(\.[0-9A-Fa-f]*)?[pP][+-]?[0-9]+  {
     try {
         float val = convertToFloatHex(yytext);
@@ -96,7 +147,10 @@
     }
 }
 
-([0-9]*\.[0-9]+|[0-9]+\.[0-9]*)([eE][+-]?[0-9]+)?    {
+%{
+// 2. 十进制带小数点的浮点数 (1.23, .5, 3.)
+%}
+([0-9]*\.[0-9]+|[0-9]+\.[0-9]*)([eE][+-]?[0-9]+)?  {
     try {
         float val = convertToFloatDec(yytext);
         return YaccParser::make_FLOAT_CONST(val, loc);
@@ -106,6 +160,9 @@
     }
 }
 
+%{
+// 3. 科学计数法整数形式 (123e-2)
+%}
 [0-9]+([eE][+-]?[0-9]+)  {
     try {
         float val = convertToFloatDec(yytext);
@@ -120,6 +177,9 @@
 // ---------- 整数 ---------- 
 %}
 
+%{
+// 4. 十六进制整数 (0x1A3F)
+%}
 0[xX][0-9A-Fa-f]+     {
     bool isLL = false;
     try {
@@ -131,6 +191,9 @@
     }
 }
 
+%{
+// 5. 八进制整数 (077)
+%}
 0[0-7]+              {
     bool isLL = false;
     try {
@@ -142,6 +205,9 @@
     }
 }
 
+%{
+// 6. 十进制整数 (0, 123)
+%}
 0|[1-9][0-9]*        {
     bool isLL = false;
     try {
@@ -152,6 +218,7 @@
         return YaccParser::make_ERR_TOKEN(yytext, loc);
     }
 }
+
 
 %{
 // ---------- 标识符 & 字符串 ---------- 
