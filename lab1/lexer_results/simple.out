@@ -98,7 +98,7 @@ INT                           int                                               
 IDENT                         INT_MIN                       INT_MIN                       24      4       
 ASSIGN                        =                                                           24      12      
 MINUS                         -                                                           24      14      
-LL_CONST                      2147483648                                                  24      15      
+LL_CONST                      2147483648                    2147483648                    24      15      
 SEMICOLON                     ;                                                           24      25      
 INT                           int                                                         26      0       
 IDENT                         main                          main                          26      4       

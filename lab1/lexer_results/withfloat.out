@@ -7,52 +7,52 @@ LBRACE                        {                                                 
 FLOAT                         float                                                       3       4       
 IDENT                         a                             a                             3       10      
 ASSIGN                        =                                                           3       12      
-FLOAT_CONST                   3.14                                                        3       14      
+FLOAT_CONST                   3.14                          3.14                          3       14      
 SEMICOLON                     ;                                                           3       18      
 FLOAT                         float                                                       4       4       
 IDENT                         b                             b                             4       10      
 ASSIGN                        =                                                           4       12      
-FLOAT_CONST                   0.5                                                         4       14      
+FLOAT_CONST                   0.5                           0.5                           4       14      
 SEMICOLON                     ;                                                           4       17      
 FLOAT                         float                                                       5       4       
 IDENT                         c                             c                             5       10      
 ASSIGN                        =                                                           5       12      
-FLOAT_CONST                   123.456                                                     5       14      
+FLOAT_CONST                   123.456                       123.456                       5       14      
 SEMICOLON                     ;                                                           5       21      
 FLOAT                         float                                                       6       4       
 IDENT                         d                             d                             6       10      
 ASSIGN                        =                                                           6       12      
-FLOAT_CONST                   .5                                                          6       14      
+FLOAT_CONST                   .5                            0.5                           6       14      
 SEMICOLON                     ;                                                           6       16      
 FLOAT                         float                                                       7       4       
 IDENT                         e                             e                             7       10      
 ASSIGN                        =                                                           7       12      
-FLOAT_CONST                   5.                                                          7       14      
+FLOAT_CONST                   5.                            5                             7       14      
 SEMICOLON                     ;                                                           7       16      
 FLOAT                         float                                                       9       4       
 IDENT                         f                             f                             9       10      
 ASSIGN                        =                                                           9       12      
-FLOAT_CONST                   1e10                                                        9       14      
+FLOAT_CONST                   1e10                          1e+10                         9       14      
 SEMICOLON                     ;                                                           9       18      
 FLOAT                         float                                                       10      4       
 IDENT                         g                             g                             10      10      
 ASSIGN                        =                                                           10      12      
-FLOAT_CONST                   1.5e10                                                      10      14      
+FLOAT_CONST                   1.5e10                        1.5e+10                       10      14      
 SEMICOLON                     ;                                                           10      20      
 FLOAT                         float                                                       11      4       
 IDENT                         h                             h                             11      10      
 ASSIGN                        =                                                           11      12      
-FLOAT_CONST                   2.5e-3                                                      11      14      
+FLOAT_CONST                   2.5e-3                        0.0025                        11      14      
 SEMICOLON                     ;                                                           11      20      
 FLOAT                         float                                                       12      4       
 IDENT                         i                             i                             12      10      
 ASSIGN                        =                                                           12      12      
-FLOAT_CONST                   .5E+5                                                       12      14      
+FLOAT_CONST                   .5E+5                         50000                         12      14      
 SEMICOLON                     ;                                                           12      19      
 FLOAT                         float                                                       13      4       
 IDENT                         j                             j                             13      10      
 ASSIGN                        =                                                           13      12      
-FLOAT_CONST                   3.e-10                                                      13      14      
+FLOAT_CONST                   3.e-10                        3e-10                         13      14      
 SEMICOLON                     ;                                                           13      20      
 RETURN                        return                                                      15      4       
 IDENT                         a                             a                             15      11      
@@ -84,32 +84,32 @@ LBRACE                        {                                                 
 FLOAT                         float                                                       20      4       
 IDENT                         a                             a                             20      10      
 ASSIGN                        =                                                           20      12      
-FLOAT_CONST                   0x1.8p0                                                     20      14      
+FLOAT_CONST                   0x1.8p0                       1.5                           20      14      
 SEMICOLON                     ;                                                           20      21      
 FLOAT                         float                                                       21      4       
 IDENT                         b                             b                             21      10      
 ASSIGN                        =                                                           21      12      
-FLOAT_CONST                   0xA.Bp2                                                     21      14      
+FLOAT_CONST                   0xA.Bp2                       42.75                         21      14      
 SEMICOLON                     ;                                                           21      21      
 FLOAT                         float                                                       22      4       
 IDENT                         c                             c                             22      10      
 ASSIGN                        =                                                           22      12      
-FLOAT_CONST                   0x1.0p-3                                                    22      14      
+FLOAT_CONST                   0x1.0p-3                      0.125                         22      14      
 SEMICOLON                     ;                                                           22      22      
 FLOAT                         float                                                       23      4       
 IDENT                         d                             d                             23      10      
 ASSIGN                        =                                                           23      12      
-FLOAT_CONST                   0xF.Fp10                                                    23      14      
+FLOAT_CONST                   0xF.Fp10                      16320                         23      14      
 SEMICOLON                     ;                                                           23      22      
 FLOAT                         float                                                       25      4       
 IDENT                         e                             e                             25      10      
 ASSIGN                        =                                                           25      12      
-FLOAT_CONST                   0x1p5                                                       25      14      
+FLOAT_CONST                   0x1p5                         32                            25      14      
 SEMICOLON                     ;                                                           25      19      
 FLOAT                         float                                                       26      4       
 IDENT                         f                             f                             26      10      
 ASSIGN                        =                                                           26      12      
-FLOAT_CONST                   0xAp-2                                                      26      14      
+FLOAT_CONST                   0xAp-2                        2.5                           26      14      
 SEMICOLON                     ;                                                           26      20      
 RETURN                        return                                                      28      4       
 IDENT                         a                             a                             28      11      
@@ -133,32 +133,32 @@ LBRACE                        {                                                 
 FLOAT                         float                                                       33      4       
 IDENT                         pi                            pi                            33      10      
 ASSIGN                        =                                                           33      19      
-FLOAT_CONST                   3.14159                                                     33      21      
+FLOAT_CONST                   3.14159                       3.14159                       33      21      
 SEMICOLON                     ;                                                           33      28      
 FLOAT                         float                                                       34      4       
 IDENT                         e_const                       e_const                       34      10      
 ASSIGN                        =                                                           34      19      
-FLOAT_CONST                   2.71828                                                     34      21      
+FLOAT_CONST                   2.71828                       2.71828                       34      21      
 SEMICOLON                     ;                                                           34      28      
 FLOAT                         float                                                       35      4       
 IDENT                         small                         small                         35      10      
 ASSIGN                        =                                                           35      19      
-FLOAT_CONST                   1e-10                                                       35      21      
+FLOAT_CONST                   1e-10                         1e-10                         35      21      
 SEMICOLON                     ;                                                           35      26      
 FLOAT                         float                                                       36      4       
 IDENT                         large                         large                         36      10      
 ASSIGN                        =                                                           36      19      
-FLOAT_CONST                   1.0e20                                                      36      21      
+FLOAT_CONST                   1.0e20                        1e+20                         36      21      
 SEMICOLON                     ;                                                           36      27      
 FLOAT                         float                                                       37      4       
 IDENT                         hex_half                      hex_half                      37      10      
 ASSIGN                        =                                                           37      19      
-FLOAT_CONST                   0x1.0p-1                                                    37      21      
+FLOAT_CONST                   0x1.0p-1                      0.5                           37      21      
 SEMICOLON                     ;                                                           37      29      
 FLOAT                         float                                                       38      4       
 IDENT                         hex_two                       hex_two                       38      10      
 ASSIGN                        =                                                           38      19      
-FLOAT_CONST                   0x2.0p0                                                     38      21      
+FLOAT_CONST                   0x2.0p0                       2                             38      21      
 SEMICOLON                     ;                                                           38      28      
 FLOAT                         float                                                       40      4       
 IDENT                         sum                           sum                           40      10      

@@ -148,9 +148,35 @@
 }
 
 %{
-// 2. 十进制带小数点的浮点数 (1.23, .5, 3.)
+// 2.1 小数点开头的浮点数 (.5, .123)
 %}
-([0-9]*\.[0-9]+|[0-9]+\.[0-9]*)([eE][+-]?[0-9]+)?  {
+\.[0-9]+([eE][+-]?[0-9]+)?  {
+    try {
+        float val = convertToFloatDec(yytext);
+        return YaccParser::make_FLOAT_CONST(val, loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid float constant: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+%{
+// 2.2 完整的浮点数 (3.14, 123.456)
+%}
+[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?  {
+    try {
+        float val = convertToFloatDec(yytext);
+        return YaccParser::make_FLOAT_CONST(val, loc);
+    } catch (const std::exception& e) {
+        _parser.reportError(loc, std::string("Invalid float constant: ") + e.what());
+        return YaccParser::make_ERR_TOKEN(yytext, loc);
+    }
+}
+
+%{
+// 2.3 小数点结尾的浮点数 (5., 123.)
+%}
+[0-9]+\.([eE][+-]?[0-9]+)?  {
     try {
         float val = convertToFloatDec(yytext);
         return YaccParser::make_FLOAT_CONST(val, loc);
