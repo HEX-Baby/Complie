@@ -10,7 +10,7 @@ make lexer
 ```
 make
 ```
-这个也是执行2遍
+这个也是执行2遍，2遍不行就3遍
 ```
 root@LAPTOP-6I4GL9SI:/mnt/e/pythonProject/编译/Lab2# make
 /bin/sh: 1: clang-format: not found
@@ -26,31 +26,15 @@ Compiling frontend/symbol/symbol_table.cpp -> obj/frontend/symbol/symbol_table.o
 
 
 # 创建结果文件夹
-mkdir -p lexer_results
-
+```
+mkdir -p parser_results
+```
 文件夹已经建立了，可以忽略这一条
 
 
-### 运行词法分析并保存输出结果
-
+# 执行下面的脚本来运行测试并比较结果
 ```
-./bin/compiler -lexer -o lexer_results/simple.out testcase/lexer/simple.sy
-./bin/compiler -lexer -o lexer_results/withfloat.out testcase/lexer/withfloat.sy
-./bin/compiler -lexer -o lexer_results/witharray.out testcase/lexer/witharray.sy
-```
+chmod +x run_parser_diff.sh
 
-
-### 对比输出结果与标准答案，保存 diff 结果
-
-```
-diff lexer_results/simple.out testcase/lexer/simple.lexer > lexer_results/simple.diff
-diff lexer_results/withfloat.out testcase/lexer/withfloat.lexer > lexer_results/withfloat.diff
-diff lexer_results/witharray.out testcase/lexer/witharray.lexer > lexer_results/witharray.diff
-```
-
-# 有个更简单的
-```
-chmod +x run_lexer_diff.sh
-
-./run_lexer_diff.sh
+./run_parser_diff.sh
 ```
